@@ -14,6 +14,7 @@ public class TestimonialDtoResponse {
     private String description;
     private Integer result;
     private byte[] image;
+    private Boolean showOnWebsite;
     private String companyName;
     private String partnerName;
     private String projectName;

@@ -1,7 +1,7 @@
 # Structure of Testimonials Service
 
 ## Entities:
-- Testimonial (id, title, description, result, image, projectId)
+- Testimonial (id, title, description, result, image, showOnWebsite, projectId)
 
 ## Payload:
 - WebsiteTestimonialRequest (TestimonialDtoRequest, authTokenValue)
@@ -22,13 +22,17 @@
 - delete Testimonial [/api/v1/testimonials/{testimonialId}] - DELETE
 
 ## Security:
+- keycloak auth for endpoints (not for website)
+- auth token check via oauth2 client (client credentials grant type)
 
 ## Auth Token Check:
 - part of company-/project-service
 
 ## Todos:
-- add logs in services
 - methods to util class (if necessary)
 - implement other endpoints
 - implement security
 - integrate an ftp server
+- add validation
+- add exception handling
+- add logs in services

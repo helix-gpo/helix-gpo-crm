@@ -13,6 +13,7 @@ public class TestimonialMapper {
                 .title(testimonial.getTitle())
                 .description(testimonial.getDescription())
                 .result(testimonial.getResult())
+                .showOnWebsite(testimonial.getShowOnWebsite())
                 .projectName(projectDto.getName())
                 .partnerName(projectDto.getPartnerDto().getName())
                 .companyName(projectDto.getPartnerDto().getCompanyDto().getName())
