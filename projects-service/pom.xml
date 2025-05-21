@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.helix.gpo</groupId>
-	<artifactId>testimonials-service</artifactId>
+	<artifactId>projects-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>testimonials-service</name>
+	<name>projects-service</name>
 	<description>Testimonials Service</description>
 	<url/>
 	<licenses>
@@ -50,6 +50,7 @@
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-mysql</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>com.mysql</groupId>
 			<artifactId>mysql-connector-j</artifactId>
@@ -77,7 +78,6 @@
 						<path>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
-							<version>1.18.36</version>
 						</path>
 					</annotationProcessorPaths>
 				</configuration>
