@@ -1,8 +1,7 @@
 package com.helix.gpo.testimonials_service.service.impl;
 
 import com.helix.gpo.testimonials_service.entity.Testimonial;
-import com.helix.gpo.testimonials_service.payload.TestimonialDtoResponse;
-import com.helix.gpo.testimonials_service.payload.WebsiteTestimonialRequest;
+import com.helix.gpo.testimonials_service.payload.*;
 import com.helix.gpo.testimonials_service.repository.TestimonialRepository;
 import com.helix.gpo.testimonials_service.service.TestimonialService;
 import com.helix.gpo.testimonials_service.util.TestimonialMapper;
@@ -26,13 +25,15 @@ public class TestimonialServiceImpl implements TestimonialService {
         validateRequestAuthToken(websiteTestimonialRequest.getAuthTokenValue());
         checkForServerErrorsAndDataMismatches();
 
-        // todo: 3) save image (if exists) to file server
+        // todo: 1) save image (if exists) to file server
 
         String imageUrl = getImageUrl(image);
         Testimonial testimonial = TestimonialMapper.mapToTestimonial(websiteTestimonialRequest.getTestimonialDtoRequest(), imageUrl);
-
         Testimonial savedTestimonial = testimonialRepository.save(testimonial);
-        return TestimonialMapper.mapToTestimonialDto(savedTestimonial);
+
+        // todo: 2) get project from project service (replace method with project rest client)
+        ProjectDto projectDto = getProjectDtoFromService();
+        return TestimonialMapper.mapToTestimonialDto(savedTestimonial, projectDto);
     }
 
     private void validateRequestAuthToken(String authTokenValue) {
@@ -49,7 +50,8 @@ public class TestimonialServiceImpl implements TestimonialService {
         List<Testimonial> websiteTestimonials = testimonialRepository.findAllByShowOnWebsite(true);
         return websiteTestimonials.stream()
                 .map(testimonial -> {
-                    TestimonialDtoResponse testimonialDto = TestimonialMapper.mapToTestimonialDto(testimonial);
+                    ProjectDto projectDto = getProjectDtoFromService(); // todo: replace with project rest client
+                    TestimonialDtoResponse testimonialDto = TestimonialMapper.mapToTestimonialDto(testimonial, projectDto);
                     byte[] image = getTestimonialImage(testimonial.getImageUrl());
                     testimonialDto.setImage(image);
                     return testimonialDto;
@@ -72,12 +74,33 @@ public class TestimonialServiceImpl implements TestimonialService {
     // helper methods
     private String getImageUrl(MultipartFile image) {
         // todo: 1) create url string for image url ('p_' + customer id + customer name + project name)
-        return image != null ? image.getName() : "";
+        return image != null ? image.getOriginalFilename() : "";
     }
 
     private byte[] getTestimonialImage(String imageUrl) {
         // todo: 1) get image from server
         return null;
+    }
+
+    // todo: method will be replaced with project rest client
+    private ProjectDto getProjectDtoFromService() {
+        CompanyDto companyDto = CompanyDto.builder()
+                .id(1L)
+                .name("Company XYZ")
+                .build();
+
+        PartnerDto partnerDto = PartnerDto.builder()
+                .id(1L)
+                .name("Konrad Weiß")
+                .job("Digital Marketing")
+                .companyDto(companyDto)
+                .build();
+
+        return ProjectDto.builder()
+                .id(1L)
+                .name("Project XYZ")
+                .partnerDto(partnerDto)
+                .build();
     }
 
 }

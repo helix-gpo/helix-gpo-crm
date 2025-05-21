@@ -14,7 +14,6 @@ public class TestimonialDtoRequest {
     private String description;
     private Integer result;
     private Boolean showOnWebsite;
-    private Long customerId;
     private Long projectId;
 
 }

@@ -1,11 +1,11 @@
 # Structure of Testimonials Service
 
 ## Entities:
-- Testimonial (id, title, description, result, image, companyId, projectId)
+- Testimonial (id, title, description, result, image, projectId)
 
 ## Payload:
 - WebsiteTestimonialRequest (TestimonialDtoRequest, authTokenValue)
-- TestimonialDtoRequest (id, title, description, result, showOnWebsite, companyId, projectId)
+- TestimonialDtoRequest (id, title, description, result, showOnWebsite, projectId)
 - TestimonialDtoResponse (id, title, description, result, image, companyName, partnerName, projectName)
 - Project (id, name, Partner)
 - Partner (id, name, job, Company)
@@ -29,3 +29,6 @@
 ## Todos:
 - add logs in services
 - methods to util class (if necessary)
+- implement other endpoints
+- implement security
+- integrate an ftp server

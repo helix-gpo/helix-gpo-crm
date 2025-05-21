@@ -22,7 +22,6 @@ public class Testimonial {
     private Integer result;
     private String imageUrl;
     private Boolean showOnWebsite;
-    private Long partnerId;
     private Long projectId;
 
 }
