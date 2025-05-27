@@ -50,4 +50,4 @@
 - add exception handling
 - add logs in services
 - get todos done
-- implement RestClient
+- implement RestClient for company-service
