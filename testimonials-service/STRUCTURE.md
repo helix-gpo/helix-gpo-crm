@@ -1,15 +1,15 @@
 # Structure of Testimonials Service
 
 ## Entities:
-- Testimonial (id, title, description, result, image, showOnWebsite, projectId)
+- Testimonial (id, title, description, result, imageUrl, showOnWebsite, projectId)
 
 ## Payload:
 - WebsiteTestimonialRequest (TestimonialDtoRequest, authTokenValue)
 - TestimonialDtoRequest (id, title, description, result, showOnWebsite, projectId)
 - TestimonialDtoResponse (id, title, description, result, image, companyName, partnerName, projectName)
-- Project (id, name, Partner)
-- Partner (id, name, job, Company)
-- Company (id, name)
+- ProjectDto (id, name, Partner)
+- PartnerDto (id, name, job, Company)
+- CompanyDto (id, name)
 
 ## Endpoints:
 - create Testimonial [/api/v1/testimonials/website] - POST (Website)
@@ -26,13 +26,15 @@
 - auth token check via oauth2 client (client credentials grant type)
 
 ## Auth Token Check:
-- part of company-/project-service
+- request to projects-service with auth-token (internally calls company-service with auth-token)
 
 ## Todos:
 - methods to util class (if necessary)
 - implement other endpoints
 - implement security
-- integrate an ftp server
+- integrate an ftp server for images
 - add validation
 - add exception handling
 - add logs in services
+- get todos done
+- implement RestClient
