@@ -7,15 +7,12 @@ import org.springframework.web.multipart.MultipartFile;
 import java.math.BigDecimal;
 import java.util.List;
 
-public interface TestimonialService {
+public interface WebsiteTestimonialService {
 
-    // website methods
     TestimonialDtoResponse addTestimonial(WebsiteTestimonialRequest testimonialRequest, MultipartFile image);
 
     List<TestimonialDtoResponse> getAllWebsiteTestimonials();
 
     BigDecimal getTestimonialsResultAverage();
-
-    // crm methods
 
 }

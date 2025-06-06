@@ -1,5 +1,6 @@
 package com.helix.gpo.testimonials_service.payload;
 
+import com.helix.gpo.testimonials_service.payload.website.WebsiteProjectDto;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -19,5 +20,6 @@ public class TestimonialDtoResponse {
     private LocalDate creationDate;
     private LocalDate lastUpdate;
     private Boolean showOnWebsite;
+    private WebsiteProjectDto websiteProjectDto;
 
 }

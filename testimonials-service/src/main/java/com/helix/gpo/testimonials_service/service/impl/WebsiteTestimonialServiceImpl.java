@@ -3,8 +3,11 @@ package com.helix.gpo.testimonials_service.service.impl;
 import com.helix.gpo.testimonials_service.entity.Testimonial;
 import com.helix.gpo.testimonials_service.payload.*;
 import com.helix.gpo.testimonials_service.payload.WebsiteTestimonialRequest;
+import com.helix.gpo.testimonials_service.payload.website.WebsiteCompanyDto;
+import com.helix.gpo.testimonials_service.payload.website.WebsitePartnerDto;
+import com.helix.gpo.testimonials_service.payload.website.WebsiteProjectDto;
 import com.helix.gpo.testimonials_service.repository.TestimonialRepository;
-import com.helix.gpo.testimonials_service.service.TestimonialService;
+import com.helix.gpo.testimonials_service.service.WebsiteTestimonialService;
 import com.helix.gpo.testimonials_service.util.TestimonialMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +20,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class TestimonialServiceImpl implements TestimonialService {
+public class WebsiteTestimonialServiceImpl implements WebsiteTestimonialService {
 
     private final TestimonialRepository testimonialRepository;
 
@@ -36,9 +39,10 @@ public class TestimonialServiceImpl implements TestimonialService {
         Testimonial savedTestimonial = testimonialRepository.save(testimonial);
 
         // todo: 2) get project from project service (replace method with project rest client)
+
         TestimonialDtoResponse finalTestimonial = TestimonialMapper.mapToTestimonialDto(savedTestimonial);
-        WebsiteTestimonialInfoDto websiteTestimonialInfoDto = getProjectInfoFromService();
-        finalTestimonial.setWebsiteTestimonialInfoDto(websiteTestimonialInfoDto);
+        WebsiteProjectDto websiteProjectDto = getProjectInfoFromService();
+        finalTestimonial.setWebsiteProjectDto(websiteProjectDto);
         return finalTestimonial;
     }
 
@@ -56,10 +60,11 @@ public class TestimonialServiceImpl implements TestimonialService {
         List<Testimonial> websiteTestimonials = testimonialRepository.findAllByShowOnWebsite(true);
         return websiteTestimonials.stream()
                 .map(testimonial -> {
-                    WebsiteTestimonialInfoDto websiteTestimonialInfoDto = getProjectInfoFromService(); // todo: replace with project rest client
-                    TestimonialDtoResponse testimonialDto = TestimonialMapper.mapToTestimonialDto(testimonial, websiteTestimonialInfoDto);
+                    WebsiteProjectDto websiteProjectDto = getProjectInfoFromService(); // todo: replace with project rest client
+                    TestimonialDtoResponse testimonialDto = TestimonialMapper.mapToTestimonialDto(testimonial);
                     byte[] image = getTestimonialImage(testimonial.getImageUrl());
                     testimonialDto.setImage(image);
+                    testimonialDto.setWebsiteProjectDto(websiteProjectDto);
                     return testimonialDto;
                 })
                 .toList();
@@ -68,12 +73,10 @@ public class TestimonialServiceImpl implements TestimonialService {
     @Override
     public BigDecimal getTestimonialsResultAverage() {
         List<Testimonial> websiteTestimonials = testimonialRepository.findAll();
-
         double average = websiteTestimonials.stream()
                 .mapToInt(Testimonial::getResult)
                 .average()
                 .orElse(0.0);
-
         return BigDecimal.valueOf(average);
     }
 
@@ -89,13 +92,24 @@ public class TestimonialServiceImpl implements TestimonialService {
     }
 
     // todo: method will be replaced with project rest client
-    private WebsiteTestimonialInfoDto getProjectInfoFromService() {
-        // todo: implement a mapper
-        return WebsiteTestimonialInfoDto.builder()
-                .projectName("Project XYZ")
-                .partnerName("Konrad Weiß")
-                .partnerJob("Professional Web Architect")
-                .companyName("Digital Marketing")
+    private WebsiteProjectDto getProjectInfoFromService() {
+        WebsiteCompanyDto websiteCompanyDto = WebsiteCompanyDto.builder()
+                .id(1L)
+                .name("Michael Breuer Steuerberatung")
+                .build();
+        WebsitePartnerDto websitePartnerDto = WebsitePartnerDto.builder()
+                .id(1L)
+                .name("Michael Breuer")
+                .job("Steuerberater")
+                .websiteCompanyDto(websiteCompanyDto)
+                .build();
+        return WebsiteProjectDto.builder()
+                .id(1L)
+                .title("Project - Contact Server")
+                .description("Einrichtung serverbasierter Arbeitsplatz")
+                .startDate(LocalDate.now())
+                .startDate(LocalDate.of(2026, 3, 31))
+                .websitePartnerDto(websitePartnerDto)
                 .build();
     }
 
