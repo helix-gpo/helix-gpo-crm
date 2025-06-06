@@ -36,6 +36,7 @@
 ## Todos:
 - methods to util class (if necessary)
 - implement other endpoints (in new controller)
+- implement crm service methods
 - implement security
 - integrate an ftp server for images
 - add validation

@@ -1,4 +1,4 @@
-package com.helix.gpo.testimonials_service.payload.crm;
+package com.helix.gpo.projects_service.payload.crm;
 
 import lombok.*;
 
@@ -10,10 +10,10 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ProjectDto {
+public class CrmProjectDto {
 
     private Long id;
-    private String name;
+    private String title;
     private String description;
     private LocalDate startDate;
     private LocalDate endDate;
@@ -23,6 +23,5 @@ public class ProjectDto {
     private BigDecimal price;
     private byte[] image;
     private Boolean showOnWebsite;
-    private PartnerDto partnerDto;
 
 }

@@ -52,9 +52,10 @@
 
 ## Todos:
 - methods to util class (if necessary)
-- implement endpoints
+- implement crm controller endpoints
+- implement crm service methods
 - implement security
-- integrate an ftp server for images and invoices
+- integrate an ftp server for images and invoices (documents)
 - add validation
 - add exception handling
 - add logs in services
@@ -62,6 +63,7 @@
 - implement RestClient for company-service
 - update partnerDto payload
 - change controller pathing
+- add mapper methods for crm
 
 ## Ideas:
 - endpoint for final projects structure with overview ready for customers (dashboard)
