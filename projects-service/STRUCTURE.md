@@ -1,15 +1,24 @@
 # Structure of Projects Service
 
 ## Entities:
-- Project (id, title, description, startDate, endDate, imageUrl, showOnWebsite, partnerId)
-- Milestone (id, title, description, startDate, endDate, milestoneStatus, price, Project)
-- Invoices (id, title, amount, invoiceStatus, Milestone)
+- Project (id, title, description, startDate, endDate, creationDate, lastUpdate, status, price, imageUrl, showOnWebsite, partnerId)
+- Milestone (id, title, description, startDate, endDate, status, price, Project)
+- Invoices (id, title, amount, deadline, status, Milestone)
+### Enums:
+- ProjectStatus (planned, active, on-hold, review, approved, canceled)
+- MilestoneStatus (planned, in-progress, review, approved, canceled)
+- InvoiceStatus (draft, sent, paid, partially-paid, overdue, canceled)
 
 ## Payload:
-- ProjectDto (id, title, description, startDate, endDate, image, showOnWebsite)
-- MilestoneDto (id, title, description, startDate, endDate, milestoneStatus, price, ProjectDto)
-- InvoiceDto (id, title, amount, invoiceStatus, MilestoneDto)
-- PartnerDto (id, name, job, Company)
+### Website:
+- WebsiteProjectDto (id, title, description, startDate, endDate, image, WebsitePartnerDto)
+- WebsitePartnerDto (id, name, job, WebsiteCompanyDto)
+- WebsiteCompanyDto (id, name)
+### CRM:
+- ProjectDto (id, title, description, startDate, endDate, creationDate, lastUpdate, status, price, image, showOnWebsite, PartnerDto)
+- MilestoneDto (id, title, description, startDate, endDate, status, price, ProjectDto)
+- InvoiceDto (id, title, amount, deadline, status, MilestoneDto)
+- PartnerDto (id, name, email, phoneNumber, job, CompanyDto)
 - CompanyDto (id, name)
 
 ## Endpoints:
@@ -51,3 +60,10 @@
 - add logs in services
 - get todos done
 - implement RestClient for company-service
+- update partnerDto payload
+- change controller pathing
+
+## Ideas:
+- endpoint for final projects structure with overview ready for customers (dashboard)
+- cronjob for overdue invoices
+- different dto payloads for different controllers

@@ -2,6 +2,8 @@ package com.helix.gpo.testimonials_service.payload;
 
 import lombok.*;
 
+import java.time.LocalDate;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -14,9 +16,8 @@ public class TestimonialDtoResponse {
     private String description;
     private Integer result;
     private byte[] image;
+    private LocalDate creationDate;
+    private LocalDate lastUpdate;
     private Boolean showOnWebsite;
-    private String companyName;
-    private String partnerName;
-    private String projectName;
 
 }

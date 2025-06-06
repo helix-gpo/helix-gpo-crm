@@ -1,4 +1,4 @@
-package com.helix.gpo.testimonials_service.payload;
+package com.helix.gpo.testimonials_service.payload.website;
 
 import lombok.*;
 
@@ -7,11 +7,11 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PartnerDto {
+public class WebsitePartnerDto {
 
     private Long id;
     private String name;
     private String job;
-    private CompanyDto companyDto;
+    private WebsiteCompanyDto websiteCompanyDto;
 
 }

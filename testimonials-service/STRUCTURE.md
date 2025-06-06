@@ -1,14 +1,19 @@
 # Structure of Testimonials Service
 
 ## Entities:
-- Testimonial (id, title, description, result, imageUrl, showOnWebsite, projectId)
+- Testimonial (id, title, description, result, imageUrl, creationDate, lastUpdate, showOnWebsite, projectId)
 
 ## Payload:
 - WebsiteTestimonialRequest (TestimonialDtoRequest, authTokenValue)
 - TestimonialDtoRequest (id, title, description, result, showOnWebsite, projectId)
-- TestimonialDtoResponse (id, title, description, result, image, companyName, partnerName, projectName)
-- ProjectDto (id, name, Partner)
-- PartnerDto (id, name, job, Company)
+- TestimonialDtoResponse (id, title, description, result, image, creationDate, lastUpdate, showOnWebsite, WebsiteProjectDto)
+### Website:
+- WebsiteProjectDto (id, title, description, startDate, endDate, image, WebsitePartnerDto)
+- WebsitePartnerDto (id, name, job, WebsiteCompanyDto)
+- WebsiteCompanyDto (id, name)
+### CRM:
+- ProjectDto (id, title, description, startDate, endDate, creationDate, lastUpdate, status, price, image, showOnWebsite, PartnerDto)
+- PartnerDto (id, name, email, phoneNumber, job, CompanyDto)
 - CompanyDto (id, name)
 
 ## Endpoints:
@@ -30,7 +35,7 @@
 
 ## Todos:
 - methods to util class (if necessary)
-- implement other endpoints
+- implement other endpoints (in new controller)
 - implement security
 - integrate an ftp server for images
 - add validation
@@ -38,3 +43,7 @@
 - add logs in services
 - get todos done
 - implement RestClient for projects-service
+- change controller pathing
+
+## Ideas:
+- different dto payloads for different controllers

@@ -1,5 +1,6 @@
-package com.helix.gpo.testimonials_service.entity;
+package com.helix.gpo.projects_service.entity;
 
+import com.helix.gpo.projects_service.entity.status.MilestoneStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,8 +13,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "TESTIMONIALS")
-public class Testimonial {
+@Table(name = "MILESTONES")
+public class Milestone {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,20 +26,17 @@ public class Testimonial {
     @Column(nullable = false)
     private String description;
 
-    @Column(nullable = false)
-    private Integer result;
-    private String imageUrl;
+    private LocalDate startDate;
+    private LocalDate endDate;
 
     @Column(nullable = false)
-    private LocalDate creationDate;
+    private MilestoneStatus status;
 
     @Column(nullable = false)
-    private LocalDate lastUpdate;
+    private BigDecimal price;
 
-    @Column(nullable = false)
-    private Boolean showOnWebsite;
-
-    @Column(nullable = false)
-    private Long projectId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "PROJECT_ID", referencedColumnName = "id")
+    private Project project;
 
 }

@@ -1,4 +1,4 @@
-package com.helix.gpo.testimonials_service.payload;
+package com.helix.gpo.testimonials_service.payload.crm;
 
 import lombok.*;
 
