@@ -3,7 +3,7 @@ package com.helix.gpo.projects_service.util;
 import com.helix.gpo.projects_service.entity.Project;
 import com.helix.gpo.projects_service.payload.website.WebsiteProjectDto;
 
-public class ProjectMapper {
+public class WebsiteProjectMapper {
 
     public static WebsiteProjectDto mapToWebsiteProjectDto(Project project) {
         return WebsiteProjectDto.builder()

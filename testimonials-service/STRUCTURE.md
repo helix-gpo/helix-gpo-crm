@@ -40,11 +40,10 @@
 - implement security
 - integrate an ftp server for images
 - add validation
-- add exception handling
+- add exception handling (custom exceptions)
 - add logs in services
 - get todos done
 - implement RestClient for projects-service
 - change controller pathing
 
 ## Ideas:
-- different dto payloads for different controllers

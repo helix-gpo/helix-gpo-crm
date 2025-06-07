@@ -57,15 +57,13 @@
 - implement security
 - integrate an ftp server for images and invoices (documents)
 - add validation
-- add exception handling
+- add exception handling (custom exceptions)
 - add logs in services
 - get todos done
 - implement RestClient for company-service
-- update partnerDto payload
 - change controller pathing
 - add mapper methods for crm
 
 ## Ideas:
 - endpoint for final projects structure with overview ready for customers (dashboard)
 - cronjob for overdue invoices
-- different dto payloads for different controllers

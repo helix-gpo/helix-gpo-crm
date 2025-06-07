@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "MILESTONES")
+@Table(name = "milestones")
 public class Milestone {
 
     @Id
@@ -36,7 +36,7 @@ public class Milestone {
     private BigDecimal price;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "PROJECT_ID", referencedColumnName = "id")
+    @JoinColumn(name = "project_id", referencedColumnName = "id")
     private Project project;
 
 }

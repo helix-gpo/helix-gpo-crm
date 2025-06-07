@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.helix.gpo</groupId>
-	<artifactId>projects-service</artifactId>
+	<artifactId>company-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>projects-service</name>
-	<description>Testimonials Service</description>
+	<name>company-service</name>
+	<description>Company Service</description>
 	<url/>
 	<licenses>
 		<license/>

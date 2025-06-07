@@ -1,5 +1,6 @@
 package com.helix.gpo.testimonials_service.service.impl;
 
+import com.helix.gpo.testimonials_service.client.ProjectClient;
 import com.helix.gpo.testimonials_service.entity.Testimonial;
 import com.helix.gpo.testimonials_service.payload.*;
 import com.helix.gpo.testimonials_service.payload.WebsiteTestimonialRequest;
@@ -23,6 +24,7 @@ import java.util.List;
 public class WebsiteTestimonialServiceImpl implements WebsiteTestimonialService {
 
     private final TestimonialRepository testimonialRepository;
+    private final ProjectClient projectClient;
 
     @Transactional
     @Override
@@ -41,7 +43,7 @@ public class WebsiteTestimonialServiceImpl implements WebsiteTestimonialService 
         // todo: 2) get project from project service (replace method with project rest client)
 
         TestimonialDtoResponse finalTestimonial = TestimonialMapper.mapToTestimonialDto(savedTestimonial);
-        WebsiteProjectDto websiteProjectDto = getProjectInfoFromService();
+        WebsiteProjectDto websiteProjectDto = getWebsiteProjectFromProjectService(savedTestimonial.getProjectId());
         finalTestimonial.setWebsiteProjectDto(websiteProjectDto);
         return finalTestimonial;
     }
@@ -60,11 +62,9 @@ public class WebsiteTestimonialServiceImpl implements WebsiteTestimonialService 
         List<Testimonial> websiteTestimonials = testimonialRepository.findAllByShowOnWebsite(true);
         return websiteTestimonials.stream()
                 .map(testimonial -> {
-                    WebsiteProjectDto websiteProjectDto = getProjectInfoFromService(); // todo: replace with project rest client
                     TestimonialDtoResponse testimonialDto = TestimonialMapper.mapToTestimonialDto(testimonial);
-                    byte[] image = getTestimonialImage(testimonial.getImageUrl());
-                    testimonialDto.setImage(image);
-                    testimonialDto.setWebsiteProjectDto(websiteProjectDto);
+                    testimonialDto.setImage(getTestimonialImage(testimonial.getImageUrl()));
+                    testimonialDto.setWebsiteProjectDto(getWebsiteProjectFromProjectService(testimonial.getProjectId()));
                     return testimonialDto;
                 })
                 .toList();
@@ -92,25 +92,8 @@ public class WebsiteTestimonialServiceImpl implements WebsiteTestimonialService 
     }
 
     // todo: method will be replaced with project rest client
-    private WebsiteProjectDto getProjectInfoFromService() {
-        WebsiteCompanyDto websiteCompanyDto = WebsiteCompanyDto.builder()
-                .id(1L)
-                .name("Michael Breuer Steuerberatung")
-                .build();
-        WebsitePartnerDto websitePartnerDto = WebsitePartnerDto.builder()
-                .id(1L)
-                .name("Michael Breuer")
-                .job("Steuerberater")
-                .websiteCompanyDto(websiteCompanyDto)
-                .build();
-        return WebsiteProjectDto.builder()
-                .id(1L)
-                .title("Project - Contact Server")
-                .description("Einrichtung serverbasierter Arbeitsplatz")
-                .startDate(LocalDate.now())
-                .startDate(LocalDate.of(2026, 3, 31))
-                .websitePartnerDto(websitePartnerDto)
-                .build();
+    private WebsiteProjectDto getWebsiteProjectFromProjectService(Long projectId) {
+        return projectClient.getWebsiteProject(projectId);
     }
 
 }

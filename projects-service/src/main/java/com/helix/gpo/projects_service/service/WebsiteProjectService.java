@@ -8,4 +8,6 @@ public interface WebsiteProjectService {
 
     List<WebsiteProjectDto> getAllWebsiteProjects();
 
+    WebsiteProjectDto getWebsiteProject(Long projectId);
+
 }
