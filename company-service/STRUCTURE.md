@@ -33,5 +33,7 @@
 - add exception handling (custom exceptions)
 - add logs in services
 - add mapper methods for crm
+- make corresponding service methods transactional
 
 ## Ideas:
+- cronjob to remove used auth token values from db

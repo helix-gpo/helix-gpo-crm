@@ -45,5 +45,6 @@
 - get todos done
 - implement RestClient for projects-service
 - change controller pathing
+- make corresponding service methods transactional
 
 ## Ideas:

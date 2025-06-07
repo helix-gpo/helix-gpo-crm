@@ -1,11 +1,10 @@
 package com.helix.gpo.testimonials_service.service.impl;
 
+import com.helix.gpo.testimonials_service.client.CompanyClient;
 import com.helix.gpo.testimonials_service.client.ProjectClient;
 import com.helix.gpo.testimonials_service.entity.Testimonial;
 import com.helix.gpo.testimonials_service.payload.*;
 import com.helix.gpo.testimonials_service.payload.WebsiteTestimonialRequest;
-import com.helix.gpo.testimonials_service.payload.website.WebsiteCompanyDto;
-import com.helix.gpo.testimonials_service.payload.website.WebsitePartnerDto;
 import com.helix.gpo.testimonials_service.payload.website.WebsiteProjectDto;
 import com.helix.gpo.testimonials_service.repository.TestimonialRepository;
 import com.helix.gpo.testimonials_service.service.WebsiteTestimonialService;
@@ -18,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,12 +25,13 @@ public class WebsiteTestimonialServiceImpl implements WebsiteTestimonialService 
 
     private final TestimonialRepository testimonialRepository;
     private final ProjectClient projectClient;
+    private final CompanyClient companyClient;
 
     @Transactional
     @Override
     public TestimonialDtoResponse addTestimonial(WebsiteTestimonialRequest websiteTestimonialRequest, MultipartFile image) {
         validateRequestAuthToken(websiteTestimonialRequest.getAuthTokenValue());
-        checkForServerErrorsAndDataMismatches();
+        checkIfTestimonialAlreadyExistsForProject(websiteTestimonialRequest.getTestimonialDtoRequest());
 
         // todo: 1) save image (if exists) to file server
 
@@ -40,8 +41,6 @@ public class WebsiteTestimonialServiceImpl implements WebsiteTestimonialService 
         testimonial.setLastUpdate(LocalDate.now());
         Testimonial savedTestimonial = testimonialRepository.save(testimonial);
 
-        // todo: 2) get project from project service (replace method with project rest client)
-
         TestimonialDtoResponse finalTestimonial = TestimonialMapper.mapToTestimonialDto(savedTestimonial);
         WebsiteProjectDto websiteProjectDto = getWebsiteProjectFromProjectService(savedTestimonial.getProjectId());
         finalTestimonial.setWebsiteProjectDto(websiteProjectDto);
@@ -49,12 +48,16 @@ public class WebsiteTestimonialServiceImpl implements WebsiteTestimonialService 
     }
 
     private void validateRequestAuthToken(String authTokenValue) {
-        // todo: 1) check if auth token is valid
-        // todo: 2) check for auth token data mismatches
+        if (!companyClient.validateAuthToken(authTokenValue)) {
+            throw new RuntimeException("auth token invalid!");
+        }
     }
 
-    private void checkForServerErrorsAndDataMismatches() {
-        // todo: 1) check if testimonial for project and customer already exists
+    private void checkIfTestimonialAlreadyExistsForProject(TestimonialDtoRequest testimonialDtoRequest) {
+        Optional<Testimonial> optionalTestimonial = testimonialRepository.findByProjectId(testimonialDtoRequest.getProjectId());
+        if (optionalTestimonial.isPresent()) {
+            throw new RuntimeException("A testimonial for this project does already exist!");
+        }
     }
 
     @Override
@@ -91,7 +94,6 @@ public class WebsiteTestimonialServiceImpl implements WebsiteTestimonialService 
         return null;
     }
 
-    // todo: method will be replaced with project rest client
     private WebsiteProjectDto getWebsiteProjectFromProjectService(Long projectId) {
         return projectClient.getWebsiteProject(projectId);
     }

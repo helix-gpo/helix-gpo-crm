@@ -13,3 +13,6 @@ spring:
 project:
   service:
     base-url: http://${PROJECTS_SERVICE_HOST:localhost}:${PROJECTS_SERVICE_PORT:8084}
+company:
+  service:
+    base-url: http://${COMPANY_SERVICE_HOST:localhost}:${COMPANY_SERVICE_PORT:8084}

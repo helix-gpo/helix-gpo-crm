@@ -63,6 +63,7 @@
 - implement RestClient for company-service
 - change controller pathing
 - add mapper methods for crm
+- make corresponding service methods transactional
 
 ## Ideas:
 - endpoint for final projects structure with overview ready for customers (dashboard)
