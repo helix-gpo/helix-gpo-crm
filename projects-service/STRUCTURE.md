@@ -54,15 +54,14 @@
 - methods to util class (if necessary)
 - implement crm controller endpoints
 - implement crm service methods
+- add mapper methods for crm
+### Website:
 - implement security
 - integrate an ftp server for images and invoices (documents)
 - add validation
 - add exception handling (custom exceptions)
 - add logs in services
 - get todos done
-- implement RestClient for company-service
-- change controller pathing
-- add mapper methods for crm
 - make corresponding service methods transactional
 
 ## Ideas:

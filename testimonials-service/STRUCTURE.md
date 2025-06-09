@@ -38,13 +38,12 @@
 - implement other endpoints (in new controller)
 - implement crm service methods
 - implement security
+### Website:
 - integrate an ftp server for images
-- add validation
+- add validation (for testimonials)
 - add exception handling (custom exceptions)
-- add logs in services
-- get todos done
-- implement RestClient for projects-service
-- change controller pathing
+- add service logs
+- get todos done (in service)
 - make corresponding service methods transactional
 
 ## Ideas:
