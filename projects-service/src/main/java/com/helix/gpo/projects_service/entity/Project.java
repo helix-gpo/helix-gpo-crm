@@ -36,6 +36,7 @@ public class Project {
     @Column(nullable = false)
     private LocalDate lastUpdate;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ProjectStatus status;
 

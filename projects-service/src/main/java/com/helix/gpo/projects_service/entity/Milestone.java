@@ -29,6 +29,7 @@ public class Milestone {
     private LocalDate startDate;
     private LocalDate endDate;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private MilestoneStatus status;
 

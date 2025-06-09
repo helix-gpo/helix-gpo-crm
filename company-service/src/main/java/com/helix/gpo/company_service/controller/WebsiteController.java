@@ -17,7 +17,7 @@ public class WebsiteController {
 
     private final WebsiteService websiteService;
 
-    @GetMapping(path = "/{partnerId}")
+    @GetMapping(value = "/{partnerId}")
     public ResponseEntity<WebsitePartnerDto> getWebsitePartner(@PathVariable(name = "partnerId") Long partnerId) {
         return new ResponseEntity<>(websiteService.getWebsitePartnerWithCompanyInfo(partnerId), HttpStatus.OK);
     }

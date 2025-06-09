@@ -68,3 +68,4 @@
 ## Ideas:
 - endpoint for final projects structure with overview ready for customers (dashboard)
 - cronjob for overdue invoices
+- consider brutto/netto 

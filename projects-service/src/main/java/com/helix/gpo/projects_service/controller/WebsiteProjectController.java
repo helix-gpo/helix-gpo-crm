@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/api/v1/projects/website")
+@RequestMapping(path = "/api/v1/website/projects")
 @RequiredArgsConstructor
 public class WebsiteProjectController {
 

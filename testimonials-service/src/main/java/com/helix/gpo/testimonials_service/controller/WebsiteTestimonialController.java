@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/api/v1/testimonials/website")
+@RequestMapping(path = "/api/v1/website/testimonials")
 @RequiredArgsConstructor
 public class WebsiteTestimonialController {
 
@@ -26,12 +26,12 @@ public class WebsiteTestimonialController {
         return new ResponseEntity<>(websiteTestimonialService.addTestimonial(websiteTestimonialRequest, image), HttpStatus.CREATED);
     }
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<List<TestimonialDtoResponse>> getAllWebsiteTestimonials() {
         return new ResponseEntity<>(websiteTestimonialService.getAllWebsiteTestimonials(), HttpStatus.OK);
     }
 
-    @GetMapping(path = "/average")
+    @GetMapping(value = "/average")
     public ResponseEntity<BigDecimal> getAllWebsiteTestimonialsAverage() {
         return new ResponseEntity<>(websiteTestimonialService.getTestimonialsResultAverage(), HttpStatus.OK);
     }
