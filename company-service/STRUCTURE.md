@@ -35,6 +35,7 @@
 - add exception handling (custom exceptions)
 - add logs in services
 - make corresponding service methods transactional
+- move initTestimonialProcess to crm controller
 
 ## Ideas:
 - cronjob to remove used auth token values from db
