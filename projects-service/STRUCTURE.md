@@ -55,7 +55,7 @@
 - implement crm controller endpoints
 - implement crm service methods
 - add mapper methods for crm
-- add invoice - data for e-invoice! (invoice number, order number, etc.)
+- add invoice - data for e-invoice! (invoice number, order number, positions, etc.)
 ### Website:
 - implement security
 - integrate an ftp server for images and invoices (documents)
@@ -69,4 +69,4 @@
 - endpoint for final projects structure with overview ready for customers (dashboard)
 - cronjob for overdue invoices
 - consider brutto/netto
-- double check invoices before sending
+- double check invoices before send
