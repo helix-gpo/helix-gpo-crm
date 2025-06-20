@@ -3,11 +3,14 @@ package com.helix.gpo.testimonials_service.service.impl;
 import com.helix.gpo.testimonials_service.client.CompanyClient;
 import com.helix.gpo.testimonials_service.client.ProjectClient;
 import com.helix.gpo.testimonials_service.entity.Testimonial;
+import com.helix.gpo.testimonials_service.exception.types.InvalidAuthTokenException;
+import com.helix.gpo.testimonials_service.exception.types.TestimonialAlreadyExistsException;
 import com.helix.gpo.testimonials_service.payload.*;
 import com.helix.gpo.testimonials_service.payload.WebsiteTestimonialRequest;
 import com.helix.gpo.testimonials_service.payload.website.WebsiteProjectDto;
 import com.helix.gpo.testimonials_service.repository.TestimonialRepository;
 import com.helix.gpo.testimonials_service.service.WebsiteTestimonialService;
+import com.helix.gpo.testimonials_service.util.Constants;
 import com.helix.gpo.testimonials_service.util.TestimonialMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -30,12 +33,15 @@ public class WebsiteTestimonialServiceImpl implements WebsiteTestimonialService 
     @Transactional
     @Override
     public TestimonialDtoResponse addTestimonial(WebsiteTestimonialRequest websiteTestimonialRequest, MultipartFile image) {
+        TestimonialDtoRequest testimonialDtoRequest = websiteTestimonialRequest.getTestimonialDtoRequest();
         validateRequestAuthToken(websiteTestimonialRequest.getAuthTokenValue());
-        checkIfTestimonialAlreadyExistsForProject(websiteTestimonialRequest.getTestimonialDtoRequest());
+        checkIfTestimonialAlreadyExistsForProject(testimonialDtoRequest);
 
-        // todo: 1) save image (if exists) to file server
+        String imageUrl = getImageUrl(testimonialDtoRequest);
+        if (!image.isEmpty()) {
+            saveTestimonialImage(image);
+        }
 
-        String imageUrl = getImageUrl(image);
         Testimonial testimonial = TestimonialMapper.mapToTestimonial(websiteTestimonialRequest.getTestimonialDtoRequest(), imageUrl);
         testimonial.setCreationDate(LocalDate.now());
         testimonial.setLastUpdate(LocalDate.now());
@@ -49,14 +55,15 @@ public class WebsiteTestimonialServiceImpl implements WebsiteTestimonialService 
 
     private void validateRequestAuthToken(String authTokenValue) {
         if (!companyClient.validateAuthToken(authTokenValue)) {
-            throw new RuntimeException("auth token invalid!");
+            throw new InvalidAuthTokenException("Invalid auth token!");
         }
     }
 
     private void checkIfTestimonialAlreadyExistsForProject(TestimonialDtoRequest testimonialDtoRequest) {
-        Optional<Testimonial> optionalTestimonial = testimonialRepository.findByProjectId(testimonialDtoRequest.getProjectId());
+        Long projectId = testimonialDtoRequest.getProjectId();
+        Optional<Testimonial> optionalTestimonial = testimonialRepository.findByProjectId(projectId);
         if (optionalTestimonial.isPresent()) {
-            throw new RuntimeException("A testimonial for this project does already exist!");
+            throw new TestimonialAlreadyExistsException(projectId);
         }
     }
 
@@ -84,14 +91,18 @@ public class WebsiteTestimonialServiceImpl implements WebsiteTestimonialService 
     }
 
     // helper methods
-    private String getImageUrl(MultipartFile image) {
-        // todo: 1) create url string for image url ('p_' + customer id + customer name + project name)
-        return image != null ? image.getOriginalFilename() : "";
+    private void saveTestimonialImage(MultipartFile image) {
+        // todo: save image on server
     }
 
     private byte[] getTestimonialImage(String imageUrl) {
-        // todo: 1) get image from server
+        // todo: get image from server
         return null;
+    }
+
+    private String getImageUrl(TestimonialDtoRequest testimonialDtoRequest) {
+        String filename = testimonialDtoRequest.getProjectId() + "_" + testimonialDtoRequest.getTitle() + ".png";
+        return Constants.TESTIMONIALS_SERVER_PATH + filename;
     }
 
     private WebsiteProjectDto getWebsiteProjectFromProjectService(Long projectId) {
