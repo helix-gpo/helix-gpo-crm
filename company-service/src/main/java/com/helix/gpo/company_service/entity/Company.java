@@ -21,6 +21,12 @@ public class Company {
     @Column(unique = true, nullable = false)
     private String name;
 
+    private String legalForm;
+
+    private String vatId;
+
+    private String taxNumber;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "company")
     private List<Partner> partners;
 

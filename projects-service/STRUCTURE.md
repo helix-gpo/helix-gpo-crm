@@ -3,7 +3,8 @@
 ## Entities:
 - Project (id, title, description, startDate, endDate, creationDate, lastUpdate, status, price, imageUrl, showOnWebsite, partnerId)
 - Milestone (id, title, description, startDate, endDate, status, price, Project)
-- Invoices (id, title, amount, deadline, status, Milestone)
+- Invoices (id, invoiceNumber, description, issueDate, dueDate, totalNetAmount, totalTaxAmount, totalGrossAmount, reasonForPayment, status, vatIdSeller, vatIdBuyer, eInvoiceFormat, eInvoiceRecipient, Milestone, [currency, paymentMethod])
+
 ### Enums:
 - ProjectStatus (planned, active, on-hold, review, approved, canceled)
 - MilestoneStatus (planned, in-progress, review, approved, canceled)

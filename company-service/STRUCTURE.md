@@ -39,3 +39,4 @@
 
 ## Ideas:
 - cronjob to remove used auth token values from db
+- save more information (tax nr., etc.)
