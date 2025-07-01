@@ -10,3 +10,6 @@
 ## General Todos for Website:
 - implement security (for website - client credentials for cross service communication)
 - integrate an ftp server for images and files
+
+## Ideas:
+- dev/staging/prod paths on s3

@@ -47,7 +47,7 @@ public class Invoice {
     @Enumerated(EnumType.STRING)
     private InvoiceStatus status;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @OneToOne
     @JoinColumn(name = "milestone_id", referencedColumnName = "id")
     private Milestone milestone;
 

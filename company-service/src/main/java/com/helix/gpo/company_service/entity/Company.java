@@ -33,4 +33,7 @@ public class Company {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "company")
     private List<Address> addresses;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "company")
+    private List<BankDetails> bankDetailsList;
+
 }

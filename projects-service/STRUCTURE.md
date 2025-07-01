@@ -59,7 +59,7 @@
 - add invoice - data for e-invoice! (invoice number, order number, positions, etc.)
 ### Website:
 - implement security
-- integrate an ftp server for images and invoices (documents)
+- integrate aws s3 for images and invoices (documents)
 - add validation
 - add exception handling (custom exceptions)
 - add logs in services

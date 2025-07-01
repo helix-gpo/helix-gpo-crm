@@ -20,6 +20,7 @@ public class AuthTokenServiceImpl implements AuthTokenService {
     private final AuthTokenRepository authTokenRepository;
     private final PartnerRepository partnerRepository;
 
+    // todo: move to secured service later on!
     @Override
     public AuthTokenDto initTestimonialProcess(WebsiteProjectDto websiteProjectDto) {
         Long partnerId = websiteProjectDto.getWebsitePartnerDto().getId();
@@ -61,6 +62,8 @@ public class AuthTokenServiceImpl implements AuthTokenService {
         AuthToken authToken = authTokenRepository.findByValue(encodeToBase64(authTokenValue)).orElseThrow(
                 () -> new RuntimeException("Auth token does not exist for this value!")
         );
+
+        // todo: secure by validating project!
 
         Partner partner = authToken.getPartner();
         return authToken.getValid() && !authToken.getUsed() && partner != null;

@@ -27,6 +27,7 @@ public class Testimonial {
 
     @Column(nullable = false)
     private Integer result;
+
     private String imageUrl;
 
     @Column(nullable = false)

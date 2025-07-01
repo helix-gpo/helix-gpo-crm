@@ -40,4 +40,7 @@ public class Milestone {
     @JoinColumn(name = "project_id", referencedColumnName = "id")
     private Project project;
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "milestone")
+    private Invoice invoice;
+
 }

@@ -17,9 +17,11 @@
 - CompanyDto (id, name)
 
 ## Endpoints:
-- create Testimonial [/api/v1/testimonials/website] - POST (Website)
-- get all Testimonials website [/api/v1/testimonials/website] - GET (Website)
-- get all Testimonials average [/api/v1/testimonials/website/average] - GET (Website)
+### Website:
+- create Testimonial [/api/v1/testimonials/website] - POST
+- get all Testimonials website [/api/v1/testimonials/website] - GET
+- get all Testimonials average [/api/v1/testimonials/website/average] - GET
+### CRM:
 - create Testimonial [/api/v1/testimonials] - POST
 - get all Testimonials [/api/v1/testimonials] - GET
 - get Testimonial by ID [/api/v1/testimonials/{testimonialId}] - GET
@@ -39,11 +41,11 @@
 - implement crm service methods
 - implement security
 ### Website:
-- integrate an ftp server for images
-- add validation (for testimonials)
-- add exception handling (custom exceptions)
+- integrate aws s3 for images
+- add validation on s3
+- add exception handling (custom exceptions) on s3
 - add service logs
 - get todos done (in service)
-- make corresponding service methods transactional
 
 ## Ideas:
+- method to reset token initialization for specific partner and project

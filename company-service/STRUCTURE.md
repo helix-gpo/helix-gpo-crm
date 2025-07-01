@@ -30,7 +30,7 @@
 - add mapper methods for crm
 ### Website:
 - implement security
-- integrate an ftp server company related (documents)
+- integrate aws s3 for company related documents
 - add validation
 - add exception handling (custom exceptions)
 - add logs in services
