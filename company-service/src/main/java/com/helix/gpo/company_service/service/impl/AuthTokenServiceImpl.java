@@ -20,7 +20,6 @@ public class AuthTokenServiceImpl implements AuthTokenService {
     private final AuthTokenRepository authTokenRepository;
     private final PartnerRepository partnerRepository;
 
-    // todo: move to secured service later on!
     @Override
     public AuthTokenDto initTestimonialProcess(WebsiteProjectDto websiteProjectDto) {
         Long partnerId = websiteProjectDto.getWebsitePartnerDto().getId();

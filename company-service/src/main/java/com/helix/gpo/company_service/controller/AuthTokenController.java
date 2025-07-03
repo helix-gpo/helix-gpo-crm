@@ -15,7 +15,6 @@ public class AuthTokenController {
 
     private final AuthTokenService authTokenService;
 
-    // todo: move to secured service later on!
     @PostMapping
     public ResponseEntity<AuthTokenDto> initTestimonialProcess(@RequestBody WebsiteProjectDto websiteProjectDto) {
         return new ResponseEntity<>(authTokenService.initTestimonialProcess(websiteProjectDto), HttpStatus.CREATED);
