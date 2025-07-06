@@ -1,5 +1,6 @@
 package com.helix.gpo.company_service.service.impl;
 
+import com.helix.gpo.company_service.client.ProjectClient;
 import com.helix.gpo.company_service.entity.AuthToken;
 import com.helix.gpo.company_service.entity.Partner;
 import com.helix.gpo.company_service.payload.AuthTokenDto;
@@ -19,6 +20,7 @@ public class AuthTokenServiceImpl implements AuthTokenService {
 
     private final AuthTokenRepository authTokenRepository;
     private final PartnerRepository partnerRepository;
+    private final ProjectClient projectClient;
 
     @Override
     public AuthTokenDto initTestimonialProcess(WebsiteProjectDto websiteProjectDto) {
@@ -31,6 +33,7 @@ public class AuthTokenServiceImpl implements AuthTokenService {
                 .valid(true)
                 .used(false)
                 .partner(partner)
+                .projectId(websiteProjectDto.getId())
                 .build();
         String authTokenValue = createAuthTokenValue();
         authToken.setValue(authTokenValue);
@@ -62,10 +65,27 @@ public class AuthTokenServiceImpl implements AuthTokenService {
                 () -> new RuntimeException("Auth token does not exist for this value!")
         );
 
-        // todo: secure by validating project!
-
         Partner partner = authToken.getPartner();
-        return authToken.getValid() && !authToken.getUsed() && partner != null;
+        Boolean related = validateProjectPartnerRelation(partner.getId(), authToken);
+        return authToken.getValid() && !authToken.getUsed() && related;
+    }
+
+    private Boolean validateProjectPartnerRelation(Long partnerId, AuthToken authToken) {
+        WebsiteProjectDto websiteProjectDto = projectClient.getWebsiteProject(authToken.getProjectId());
+        return partnerId.equals(websiteProjectDto.getWebsitePartnerDto().getId());
+    }
+
+    @Override
+    public Boolean invalidateAuthToken(String authTokenValue) {
+        AuthToken authToken = authTokenRepository.findByValue(encodeToBase64(authTokenValue)).orElseThrow(
+                () -> new RuntimeException("Auth token does not exist for this value!")
+        );
+
+        authToken.setUsed(true);
+        authToken.setValid(false);
+        authTokenRepository.save(authToken);
+
+        return true;
     }
 
     private String encodeToBase64(String input) {

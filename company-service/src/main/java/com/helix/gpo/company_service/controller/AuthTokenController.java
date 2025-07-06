@@ -20,9 +20,14 @@ public class AuthTokenController {
         return new ResponseEntity<>(authTokenService.initTestimonialProcess(websiteProjectDto), HttpStatus.CREATED);
     }
 
-    @PostMapping(value = "/{authTokenValue}")
+    @PostMapping(value = "/{authTokenValue}/validate")
     public ResponseEntity<Boolean> validateAuthToken(@PathVariable(name = "authTokenValue") String authTokenValue) {
         return new ResponseEntity<>(authTokenService.validateAuthToken(authTokenValue), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/{authTokenValue}/invalidate")
+    public ResponseEntity<Boolean> invalidateAuthToken(@PathVariable(name = "authTokenValue") String authTokenValue) {
+        return new ResponseEntity<>(authTokenService.invalidateAuthToken(authTokenValue), HttpStatus.OK);
     }
 
 }

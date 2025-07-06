@@ -16,7 +16,7 @@ public class WebsiteProjectDto {
     private String description;
     private LocalDate startDate;
     private LocalDate endDate;
-    private byte[] image;
+    private String imageUrl;
     private Boolean showOnWebsite;
     private WebsitePartnerDto websitePartnerDto;
 

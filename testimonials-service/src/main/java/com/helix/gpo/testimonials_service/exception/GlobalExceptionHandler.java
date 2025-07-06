@@ -48,18 +48,18 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(errorDetails, HttpStatus.FORBIDDEN);
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleGlobalException(Exception exception,
-                                                               WebRequest webRequest) {
-        ErrorResponse errorDetails = new ErrorResponse(
-                LocalDateTime.now(),
-                exception.getMessage(),
-                webRequest.getDescription(false),
-                "INTERNAL_SERVER_ERROR",
-                HttpStatus.INTERNAL_SERVER_ERROR.value()
-        );
-        return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+//    @ExceptionHandler(Exception.class)
+//    public ResponseEntity<ErrorResponse> handleGlobalException(Exception exception,
+//                                                               WebRequest webRequest) {
+//        ErrorResponse errorDetails = new ErrorResponse(
+//                LocalDateTime.now(),
+//                exception.getMessage(),
+//                webRequest.getDescription(false),
+//                "INTERNAL_SERVER_ERROR",
+//                HttpStatus.INTERNAL_SERVER_ERROR.value()
+//        );
+//        return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
+//    }
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,

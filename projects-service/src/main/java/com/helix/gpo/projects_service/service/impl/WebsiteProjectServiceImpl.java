@@ -26,7 +26,6 @@ public class WebsiteProjectServiceImpl implements WebsiteProjectService {
         return websiteProjects.stream()
                 .map(project -> {
                     WebsiteProjectDto websiteProjectDto = WebsiteProjectMapper.mapToWebsiteProjectDto(project);
-                    websiteProjectDto.setImage(getProjectImage(project));
                     websiteProjectDto.setWebsitePartnerDto(getWebsitePartnerFromCompanyService(project));
                     return websiteProjectDto;
                 })
@@ -40,15 +39,9 @@ public class WebsiteProjectServiceImpl implements WebsiteProjectService {
         );
 
         WebsiteProjectDto websiteProjectDto = WebsiteProjectMapper.mapToWebsiteProjectDto(project);
-        websiteProjectDto.setImage(getProjectImage(project));
         websiteProjectDto.setWebsitePartnerDto(getWebsitePartnerFromCompanyService(project));
 
         return websiteProjectDto;
-    }
-
-    private byte[] getProjectImage(Project project) {
-        // todo: 1) get image from server
-        return new byte[]{};
     }
 
     private WebsitePartnerDto getWebsitePartnerFromCompanyService(Project project) {

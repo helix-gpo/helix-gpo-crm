@@ -50,6 +50,11 @@ public class WebsiteTestimonialServiceImpl implements WebsiteTestimonialService 
         TestimonialDtoResponse finalTestimonial = TestimonialMapper.mapToTestimonialDto(savedTestimonial);
         WebsiteProjectDto websiteProjectDto = getWebsiteProjectFromProjectService(savedTestimonial.getProjectId());
         finalTestimonial.setWebsiteProjectDto(websiteProjectDto);
+
+        if (companyClient.invalidateAuthToken(websiteTestimonialRequest.getAuthTokenValue())) {
+            throw new InvalidAuthTokenException("Invalidating token was not successful!");
+        }
+
         return finalTestimonial;
     }
 
@@ -73,7 +78,6 @@ public class WebsiteTestimonialServiceImpl implements WebsiteTestimonialService 
         return websiteTestimonials.stream()
                 .map(testimonial -> {
                     TestimonialDtoResponse testimonialDto = TestimonialMapper.mapToTestimonialDto(testimonial);
-                    testimonialDto.setImage(getTestimonialImage(testimonial.getImageUrl()));
                     testimonialDto.setWebsiteProjectDto(getWebsiteProjectFromProjectService(testimonial.getProjectId()));
                     return testimonialDto;
                 })
@@ -93,11 +97,6 @@ public class WebsiteTestimonialServiceImpl implements WebsiteTestimonialService 
     // helper methods
     private void saveTestimonialImage(MultipartFile image) {
         // todo: save image on server
-    }
-
-    private byte[] getTestimonialImage(String imageUrl) {
-        // todo: get image from server
-        return null;
     }
 
     private String getImageUrl(TestimonialDtoRequest testimonialDtoRequest) {

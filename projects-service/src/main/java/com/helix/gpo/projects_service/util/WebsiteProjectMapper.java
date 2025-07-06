@@ -12,6 +12,7 @@ public class WebsiteProjectMapper {
                 .description(project.getDescription())
                 .startDate(project.getStartDate())
                 .endDate(project.getEndDate())
+                .imageUrl(project.getImageUrl())
                 .showOnWebsite(project.getShowOnWebsite())
                 .build();
     }

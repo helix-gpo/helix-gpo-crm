@@ -25,6 +25,9 @@ public class AuthToken {
     @Column(nullable = false)
     private Boolean used;
 
+    @Column(nullable = false)
+    private Long projectId;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "partner_id", referencedColumnName = "id")
     private Partner partner;

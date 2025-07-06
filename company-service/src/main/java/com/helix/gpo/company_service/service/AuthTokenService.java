@@ -9,4 +9,6 @@ public interface AuthTokenService {
 
     Boolean validateAuthToken(String authTokenValue);
 
+    Boolean invalidateAuthToken(String authTokenValue);
+
 }

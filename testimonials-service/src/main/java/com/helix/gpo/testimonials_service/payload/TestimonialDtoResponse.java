@@ -16,7 +16,7 @@ public class TestimonialDtoResponse {
     private String title;
     private String description;
     private Integer result;
-    private byte[] image;
+    private String imageUrl;
     private LocalDate creationDate;
     private LocalDate lastUpdate;
     private Boolean showOnWebsite;

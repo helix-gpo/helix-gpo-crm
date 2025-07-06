@@ -20,6 +20,7 @@ public class WebsiteTestimonialController {
 
     private final WebsiteTestimonialService websiteTestimonialService;
 
+    // todo: move endpoint to secure service later on!
     @PostMapping(consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
     public ResponseEntity<TestimonialDtoResponse> addTestimonial(@RequestPart(name = "payload") WebsiteTestimonialRequest websiteTestimonialRequest,
                                                                  @RequestPart(name = "image", required = false) MultipartFile image) {

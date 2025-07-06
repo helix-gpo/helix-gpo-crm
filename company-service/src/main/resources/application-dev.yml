@@ -9,3 +9,11 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+
+project:
+  service:
+    base-url: http://${PROJECTS_SERVICE_HOST:localhost}:${PROJECTS_SERVICE_PORT:8084}
+
+logging:
+  level:
+    org.springframework.security: debug

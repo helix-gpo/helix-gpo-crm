@@ -12,6 +12,7 @@ public class TestimonialMapper {
                 .title(testimonial.getTitle())
                 .description(testimonial.getDescription())
                 .result(testimonial.getResult())
+                .imageUrl(testimonial.getImageUrl())
                 .creationDate(testimonial.getCreationDate())
                 .lastUpdate(testimonial.getLastUpdate())
                 .showOnWebsite(testimonial.getShowOnWebsite())
