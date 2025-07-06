@@ -46,6 +46,7 @@
 - add exception handling (custom exceptions) on s3
 - add service logs
 - get todos done (in service)
+- move security config urls to yml-config-file
 
 ## Ideas:
 - method to reset token initialization for specific partner and project
