@@ -9,6 +9,10 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+  servlet:
+    multipart:
+      max-file-size: 6MB
+      max-request-size: 10MB
 
 project:
   service:
@@ -16,6 +20,12 @@ project:
 company:
   service:
     base-url: http://${COMPANY_SERVICE_HOST:localhost}:${COMPANY_SERVICE_PORT:8086}
+
+aws:
+  region: ${AWS_REGION}
+  access-key: ${AWS_DEV_USER_ACCESS_KEY}
+  secret-key: ${AWS_DEV_USER_SECRET_KEY}
+  bucket: ${AWS_TESTIMONIALS_DEV_BUCKET}
 
 logging:
   level:

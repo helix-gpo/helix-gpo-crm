@@ -12,4 +12,3 @@
 - integrate an ftp server for images and files
 
 ## Ideas:
-- dev/staging/prod paths on s3

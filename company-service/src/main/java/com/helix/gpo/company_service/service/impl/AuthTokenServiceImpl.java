@@ -35,7 +35,7 @@ public class AuthTokenServiceImpl implements AuthTokenService {
                 .partner(partner)
                 .projectId(websiteProjectDto.getId())
                 .build();
-        String authTokenValue = createAuthTokenValue();
+        String authTokenValue = createAuthTokenValue(websiteProjectDto.getTitle());
         authToken.setValue(authTokenValue);
 
         AuthToken savedAuthToken = authTokenRepository.save(authToken);
@@ -49,8 +49,8 @@ public class AuthTokenServiceImpl implements AuthTokenService {
                 .build();
     }
 
-    private String createAuthTokenValue() {
-        String authTokenValue = UUID.randomUUID().toString();
+    private String createAuthTokenValue(String projectTitle) {
+        String authTokenValue = projectTitle + "_" + UUID.randomUUID();
         return encodeToBase64(authTokenValue);
     }
 
