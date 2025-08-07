@@ -30,4 +30,9 @@ public class AuthTokenController {
         return new ResponseEntity<>(authTokenService.invalidateAuthToken(authTokenValue), HttpStatus.OK);
     }
 
+    @GetMapping(value = "/{authTokenValue}/project")
+    public ResponseEntity<Long> getProjectIdByAuthTokenValue(@PathVariable(name = "authTokenValue") String authTokenValue) {
+        return new ResponseEntity<>(authTokenService.getProjectIdByAuthTokenValue(authTokenValue), HttpStatus.OK);
+    }
+
 }

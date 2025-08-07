@@ -12,3 +12,4 @@
 - integrate an ftp server for images and files
 
 ## Ideas:
+- Cronjobs for Account Transactions (send them to dad) 

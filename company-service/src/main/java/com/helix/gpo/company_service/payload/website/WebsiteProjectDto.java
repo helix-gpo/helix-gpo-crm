@@ -3,6 +3,7 @@ package com.helix.gpo.company_service.payload.website;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -19,5 +20,6 @@ public class WebsiteProjectDto {
     private byte[] image;
     private Boolean showOnWebsite;
     private WebsitePartnerDto websitePartnerDto;
+    private List<String> tags;
 
 }

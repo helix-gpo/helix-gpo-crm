@@ -88,6 +88,14 @@ public class AuthTokenServiceImpl implements AuthTokenService {
         return true;
     }
 
+    @Override
+    public Long getProjectIdByAuthTokenValue(String authTokenValue) {
+        AuthToken authToken = authTokenRepository.findByValue(encodeToBase64(authTokenValue)).orElseThrow(
+                () -> new RuntimeException("Auth token does not exist for this value!")
+        );
+        return authToken.getProjectId();
+    }
+
     private String encodeToBase64(String input) {
         return Base64.getEncoder().encodeToString(input.getBytes());
     }

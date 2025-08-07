@@ -26,7 +26,6 @@ public class TestimonialMapper {
                 .result(testimonialDtoRequest.getResult())
                 .imageUrl(imageUrl)
                 .showOnWebsite(testimonialDtoRequest.getShowOnWebsite())
-                .projectId(testimonialDtoRequest.getProjectId())
                 .build();
     }
 

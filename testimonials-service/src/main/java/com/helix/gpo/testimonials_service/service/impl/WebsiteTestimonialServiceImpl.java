@@ -35,13 +35,15 @@ public class WebsiteTestimonialServiceImpl implements WebsiteTestimonialService 
     @Transactional
     @Override
     public TestimonialDtoResponse addTestimonial(WebsiteTestimonialRequest websiteTestimonialRequest, MultipartFile image) {
-        TestimonialDtoRequest testimonialDtoRequest = websiteTestimonialRequest.getTestimonialDtoRequest();
-        validateRequestAuthToken(websiteTestimonialRequest.getAuthTokenValue());
-        checkIfTestimonialAlreadyExistsForProject(testimonialDtoRequest);
+        String authTokenValue = websiteTestimonialRequest.getAuthTokenValue();
+
+        validateRequestAuthToken(authTokenValue);
+        checkIfTestimonialAlreadyExistsForProject(authTokenValue);
 
         String imageUrl = "";
         if (!image.isEmpty()) {
-            imageUrl = saveTestimonialImage(image, testimonialDtoRequest.getProjectId());
+            Long projectId = companyClient.getProjectIdByAuthTokenValue(authTokenValue);
+            imageUrl = saveTestimonialImage(image, projectId);
         }
 
         Testimonial testimonial = TestimonialMapper.mapToTestimonial(websiteTestimonialRequest.getTestimonialDtoRequest(), imageUrl);
@@ -68,8 +70,8 @@ public class WebsiteTestimonialServiceImpl implements WebsiteTestimonialService 
         }
     }
 
-    private void checkIfTestimonialAlreadyExistsForProject(TestimonialDtoRequest testimonialDtoRequest) {
-        Long projectId = testimonialDtoRequest.getProjectId();
+    private void checkIfTestimonialAlreadyExistsForProject(String authTokenValue) {
+        Long projectId = companyClient.getProjectIdByAuthTokenValue(authTokenValue);
         Optional<Testimonial> optionalTestimonial = testimonialRepository.findByProjectId(projectId);
         if (optionalTestimonial.isPresent()) {
             throw new TestimonialAlreadyExistsException(projectId);
