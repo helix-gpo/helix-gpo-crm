@@ -61,9 +61,10 @@ public class AuthTokenServiceImpl implements AuthTokenService {
 
     @Override
     public Boolean validateAuthToken(String authTokenValue) {
-        AuthToken authToken = authTokenRepository.findByValue(encodeToBase64(authTokenValue)).orElseThrow(
-                () -> new RuntimeException("Auth token does not exist for this value!")
-        );
+        AuthToken authToken = authTokenRepository.findByValue(encodeToBase64(authTokenValue)).orElse(null);
+        if (authToken == null) {
+            return false;
+        }
 
         Partner partner = authToken.getPartner();
         Boolean related = validateProjectPartnerRelation(partner.getId(), authToken);

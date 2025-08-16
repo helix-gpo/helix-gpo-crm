@@ -1,7 +1,6 @@
-package com.helix.gpo.testimonials_service.exception;
+package com.helix.gpo.projects_service.exception;
 
-import com.helix.gpo.testimonials_service.exception.types.InvalidAuthTokenException;
-import com.helix.gpo.testimonials_service.exception.types.TestimonialAlreadyExistsException;
+import com.helix.gpo.projects_service.exception.types.ProjectNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
@@ -28,30 +27,19 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     private final MessageSource messageSource;
 
-    @ExceptionHandler(TestimonialAlreadyExistsException.class)
-    public ResponseEntity<ErrorResponse> handleTestimonialAlreadyExistsException(WebRequest webRequest, Locale locale) {
-        String message = messageSource.getMessage("error.testimonial.already.exists", null, locale);
+    @ExceptionHandler(ProjectNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleProjectNotFoundException(ProjectNotFoundException exception,
+                                                                        WebRequest webRequest, Locale locale) {
+        Object[] args = { exception.getProjectId() };
+        String message = messageSource.getMessage("error.project.not.found", args, locale);
         ErrorResponse errorDetails = new ErrorResponse(
                 LocalDateTime.now(),
                 message,
                 webRequest.getDescription(false),
-                "CONFLICT",
-                HttpStatus.CONFLICT.value()
+                "PROJECT_NOT_FOUND",
+                HttpStatus.NOT_FOUND.value()
         );
-        return new ResponseEntity<>(errorDetails, HttpStatus.CONFLICT);
-    }
-
-    @ExceptionHandler(InvalidAuthTokenException.class)
-    public ResponseEntity<ErrorResponse> handleInvalidAuthTokenException(WebRequest webRequest, Locale locale) {
-        String message = messageSource.getMessage("error.invalid.auth.token", null, locale);
-        ErrorResponse errorDetails = new ErrorResponse(
-                LocalDateTime.now(),
-                message,
-                webRequest.getDescription(true),
-                "FORBIDDEN",
-                HttpStatus.FORBIDDEN.value()
-        );
-        return new ResponseEntity<>(errorDetails, HttpStatus.FORBIDDEN);
+        return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }
 
 //    @ExceptionHandler(Exception.class)

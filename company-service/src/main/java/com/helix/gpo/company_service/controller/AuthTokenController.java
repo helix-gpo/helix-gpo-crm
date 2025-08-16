@@ -20,18 +20,18 @@ public class AuthTokenController {
         return new ResponseEntity<>(authTokenService.initTestimonialProcess(websiteProjectDto), HttpStatus.CREATED);
     }
 
-    @PostMapping(value = "/{authTokenValue}/validate")
-    public ResponseEntity<Boolean> validateAuthToken(@PathVariable(name = "authTokenValue") String authTokenValue) {
+    @PostMapping(value = "/validate")
+    public ResponseEntity<Boolean> validateAuthToken(@RequestParam(name = "authTokenValue") String authTokenValue) {
         return new ResponseEntity<>(authTokenService.validateAuthToken(authTokenValue), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/{authTokenValue}/invalidate")
-    public ResponseEntity<Boolean> invalidateAuthToken(@PathVariable(name = "authTokenValue") String authTokenValue) {
+    @PostMapping(value = "/invalidate")
+    public ResponseEntity<Boolean> invalidateAuthToken(@RequestParam(name = "authTokenValue") String authTokenValue) {
         return new ResponseEntity<>(authTokenService.invalidateAuthToken(authTokenValue), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/{authTokenValue}/project")
-    public ResponseEntity<Long> getProjectIdByAuthTokenValue(@PathVariable(name = "authTokenValue") String authTokenValue) {
+    @GetMapping(value = "/project")
+    public ResponseEntity<Long> getProjectIdByAuthTokenValue(@RequestParam(name = "authTokenValue") String authTokenValue) {
         return new ResponseEntity<>(authTokenService.getProjectIdByAuthTokenValue(authTokenValue), HttpStatus.OK);
     }
 

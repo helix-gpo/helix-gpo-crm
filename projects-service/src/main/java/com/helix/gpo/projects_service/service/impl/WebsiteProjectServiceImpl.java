@@ -2,6 +2,7 @@ package com.helix.gpo.projects_service.service.impl;
 
 import com.helix.gpo.projects_service.client.CompanyClient;
 import com.helix.gpo.projects_service.entity.Project;
+import com.helix.gpo.projects_service.exception.types.ProjectNotFoundException;
 import com.helix.gpo.projects_service.payload.website.WebsitePartnerDto;
 import com.helix.gpo.projects_service.payload.website.WebsiteProjectDto;
 import com.helix.gpo.projects_service.repository.ProjectRepository;
@@ -9,7 +10,6 @@ import com.helix.gpo.projects_service.service.WebsiteProjectService;
 import com.helix.gpo.projects_service.util.WebsiteProjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -35,7 +35,7 @@ public class WebsiteProjectServiceImpl implements WebsiteProjectService {
     @Override
     public WebsiteProjectDto getWebsiteProject(Long projectId) {
         Project project = projectRepository.findById(projectId).orElseThrow(
-                () -> new RuntimeException("Project not found with ID: " + projectId)
+                () -> new ProjectNotFoundException(projectId)
         );
 
         WebsiteProjectDto websiteProjectDto = WebsiteProjectMapper.mapToWebsiteProjectDto(project);

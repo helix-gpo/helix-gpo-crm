@@ -5,7 +5,7 @@ import com.helix.gpo.testimonials_service.client.ProjectClient;
 import com.helix.gpo.testimonials_service.entity.Testimonial;
 import com.helix.gpo.testimonials_service.exception.types.InvalidAuthTokenException;
 import com.helix.gpo.testimonials_service.exception.types.TestimonialAlreadyExistsException;
-import com.helix.gpo.testimonials_service.payload.*;
+import com.helix.gpo.testimonials_service.payload.TestimonialDtoResponse;
 import com.helix.gpo.testimonials_service.payload.WebsiteTestimonialRequest;
 import com.helix.gpo.testimonials_service.payload.website.WebsiteProjectDto;
 import com.helix.gpo.testimonials_service.repository.TestimonialRepository;
@@ -14,9 +14,9 @@ import com.helix.gpo.testimonials_service.service.WebsiteTestimonialService;
 import com.helix.gpo.testimonials_service.util.TestimonialMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.apache.commons.io.FilenameUtils;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -57,9 +57,7 @@ public class WebsiteTestimonialServiceImpl implements WebsiteTestimonialService 
         finalTestimonial.setImageUrl(!savedTestimonial.getImageUrl().isEmpty() ?
                 awsS3Service.generatePresignedUrl(savedTestimonial.getImageUrl(), image.getContentType()) : "");
 
-        if (!companyClient.invalidateAuthToken(websiteTestimonialRequest.getAuthTokenValue())) {
-            throw new InvalidAuthTokenException("Invalidating token was not successful!");
-        }
+        invalidateAuthToken(websiteTestimonialRequest.getAuthTokenValue());
 
         return finalTestimonial;
     }
@@ -75,6 +73,12 @@ public class WebsiteTestimonialServiceImpl implements WebsiteTestimonialService 
         Optional<Testimonial> optionalTestimonial = testimonialRepository.findByProjectId(projectId);
         if (optionalTestimonial.isPresent()) {
             throw new TestimonialAlreadyExistsException(projectId);
+        }
+    }
+
+    private void invalidateAuthToken(String authTokenValue) {
+        if (!companyClient.invalidateAuthToken(authTokenValue)) {
+            throw new InvalidAuthTokenException("Invalidating token was not successful!");
         }
     }
 
