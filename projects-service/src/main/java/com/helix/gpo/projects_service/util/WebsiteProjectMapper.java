@@ -9,14 +9,14 @@ import java.util.List;
 
 public class WebsiteProjectMapper {
 
-    public static WebsiteProjectDto mapToWebsiteProjectDto(Project project) {
+    public static WebsiteProjectDto mapToWebsiteProjectDto(Project project, String imageUrl) {
         return WebsiteProjectDto.builder()
                 .id(project.getId())
                 .title(project.getTitle())
                 .description(project.getDescription())
                 .startDate(project.getStartDate())
                 .endDate(project.getEndDate())
-                .imageUrl(project.getImageUrl())
+                .imageUrl(imageUrl)
                 .showOnWebsite(project.getShowOnWebsite())
                 .tags(mapProjectTags(project))
                 .build();

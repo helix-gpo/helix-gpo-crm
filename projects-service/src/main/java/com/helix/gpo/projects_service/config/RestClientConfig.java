@@ -1,15 +1,11 @@
 package com.helix.gpo.projects_service.config;
 
+import com.helix.gpo.projects_service.client.AwsClient;
 import com.helix.gpo.projects_service.client.CompanyClient;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.http.client.ClientHttpRequestFactoryBuilder;
-import org.springframework.boot.http.client.ClientHttpRequestFactorySettings;
-import org.springframework.boot.web.client.ClientHttpRequestFactories;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.JdkClientHttpRequestFactory;
-import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.support.RestClientAdapter;
 import org.springframework.web.service.invoker.HttpServiceProxyFactory;
@@ -23,6 +19,9 @@ public class RestClientConfig {
     @Value("${company.service.base-url}")
     private String companyServiceBaseUrl;
 
+    @Value("${aws.service.base-url}")
+    private String awsServiceBaseUrl;
+
     @Bean
     public CompanyClient companyClient() {
         RestClient restClient = RestClient.builder()
@@ -32,6 +31,17 @@ public class RestClientConfig {
         var restClientAdapter = RestClientAdapter.create(restClient);
         var httpServerProxyFactory = HttpServiceProxyFactory.builderFor(restClientAdapter).build();
         return httpServerProxyFactory.createClient(CompanyClient.class);
+    }
+
+    @Bean
+    public AwsClient awsClient() {
+        RestClient restClient = RestClient.builder()
+                .baseUrl(awsServiceBaseUrl)
+                .requestFactory(getJdkClientRequestFactory())
+                .build();
+        var restClientAdapter = RestClientAdapter.create(restClient);
+        var httpServerProxyFactory = HttpServiceProxyFactory.builderFor(restClientAdapter).build();
+        return httpServerProxyFactory.createClient(AwsClient.class);
     }
 
     private JdkClientHttpRequestFactory getJdkClientRequestFactory() {

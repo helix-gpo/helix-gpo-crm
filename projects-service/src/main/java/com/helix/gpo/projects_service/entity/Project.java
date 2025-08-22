@@ -43,6 +43,7 @@ public class Project {
 
     private BigDecimal price;
     private String imageUrl;
+    private String contentType;
 
     @Column(nullable = false)
     private Boolean showOnWebsite;

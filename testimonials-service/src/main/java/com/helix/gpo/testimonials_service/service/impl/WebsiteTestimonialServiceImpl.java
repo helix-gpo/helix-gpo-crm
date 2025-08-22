@@ -1,5 +1,6 @@
 package com.helix.gpo.testimonials_service.service.impl;
 
+import com.helix.gpo.testimonials_service.client.AwsClient;
 import com.helix.gpo.testimonials_service.client.CompanyClient;
 import com.helix.gpo.testimonials_service.client.ProjectClient;
 import com.helix.gpo.testimonials_service.entity.Testimonial;
@@ -9,12 +10,12 @@ import com.helix.gpo.testimonials_service.payload.TestimonialDtoResponse;
 import com.helix.gpo.testimonials_service.payload.WebsiteTestimonialRequest;
 import com.helix.gpo.testimonials_service.payload.website.WebsiteProjectDto;
 import com.helix.gpo.testimonials_service.repository.TestimonialRepository;
-import com.helix.gpo.testimonials_service.service.AwsS3Service;
 import com.helix.gpo.testimonials_service.service.WebsiteTestimonialService;
 import com.helix.gpo.testimonials_service.util.TestimonialMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FilenameUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -30,7 +31,10 @@ public class WebsiteTestimonialServiceImpl implements WebsiteTestimonialService 
     private final TestimonialRepository testimonialRepository;
     private final ProjectClient projectClient;
     private final CompanyClient companyClient;
-    private final AwsS3Service awsS3Service;
+    private final AwsClient awsClient;
+
+    @Value("${aws.bucket}")
+    private String awsBucket;
 
     @Transactional
     @Override
@@ -41,21 +45,25 @@ public class WebsiteTestimonialServiceImpl implements WebsiteTestimonialService 
         checkIfTestimonialAlreadyExistsForProject(authTokenValue);
 
         String imageUrl = "";
-        if (!image.isEmpty()) {
-            Long projectId = companyClient.getProjectIdByAuthTokenValue(authTokenValue);
+        Long projectId = companyClient.getProjectIdByAuthTokenValue(authTokenValue);
+
+        if (image != null) {
             imageUrl = saveTestimonialImage(image, projectId);
         }
 
         Testimonial testimonial = TestimonialMapper.mapToTestimonial(websiteTestimonialRequest.getTestimonialDtoRequest(), imageUrl);
+        testimonial.setContentType(image == null ?  null : image.getContentType());
+        testimonial.setProjectId(projectId);
         testimonial.setCreationDate(LocalDate.now());
         testimonial.setLastUpdate(LocalDate.now());
         Testimonial savedTestimonial = testimonialRepository.save(testimonial);
 
-        TestimonialDtoResponse finalTestimonial = TestimonialMapper.mapToTestimonialDto(savedTestimonial);
+        String newImageUrl = savedTestimonial.getImageUrl().isEmpty()
+                ? savedTestimonial.getImageUrl()
+                : getPresignedUrl(savedTestimonial.getImageUrl(), savedTestimonial.getContentType());
+        TestimonialDtoResponse finalTestimonial = TestimonialMapper.mapToTestimonialDto(savedTestimonial, newImageUrl);
         WebsiteProjectDto websiteProjectDto = getWebsiteProjectFromProjectService(savedTestimonial.getProjectId());
         finalTestimonial.setWebsiteProjectDto(websiteProjectDto);
-        finalTestimonial.setImageUrl(!savedTestimonial.getImageUrl().isEmpty() ?
-                awsS3Service.generatePresignedUrl(savedTestimonial.getImageUrl(), image.getContentType()) : "");
 
         invalidateAuthToken(websiteTestimonialRequest.getAuthTokenValue());
 
@@ -87,7 +95,10 @@ public class WebsiteTestimonialServiceImpl implements WebsiteTestimonialService 
         List<Testimonial> websiteTestimonials = testimonialRepository.findAllByShowOnWebsite(true);
         return websiteTestimonials.stream()
                 .map(testimonial -> {
-                    TestimonialDtoResponse testimonialDto = TestimonialMapper.mapToTestimonialDto(testimonial);
+                    String imageUrl = testimonial.getImageUrl().isEmpty()
+                            ? testimonial.getImageUrl()
+                            : getPresignedUrl(testimonial.getImageUrl(), testimonial.getContentType());
+                    TestimonialDtoResponse testimonialDto = TestimonialMapper.mapToTestimonialDto(testimonial, imageUrl);
                     testimonialDto.setWebsiteProjectDto(getWebsiteProjectFromProjectService(testimonial.getProjectId()));
                     return testimonialDto;
                 })
@@ -108,11 +119,15 @@ public class WebsiteTestimonialServiceImpl implements WebsiteTestimonialService 
         String originalFilename = image.getOriginalFilename();
         String extension = FilenameUtils.getExtension(originalFilename);
         String key = projectId + "." + extension;
-        return awsS3Service.upload(image, key);
+        return awsClient.uploadImage(awsBucket, image, key);
     }
 
     private WebsiteProjectDto getWebsiteProjectFromProjectService(Long projectId) {
         return projectClient.getWebsiteProject(projectId);
+    }
+
+    private String getPresignedUrl(String key, String contentType) {
+        return awsClient.generatePresignedUrl(awsBucket, key, contentType);
     }
 
 }

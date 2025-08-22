@@ -1,32 +1,29 @@
-package com.helix.gpo.testimonials_service.service.impl;
+package com.helix.gpo.aws_service.service.impl;
 
-import com.helix.gpo.testimonials_service.service.AwsS3Service;
+import com.helix.gpo.aws_service.service.AwsService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
+import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
-import software.amazon.awssdk.services.s3.presigner.model.PresignedPutObjectRequest;
+import software.amazon.awssdk.services.s3.presigner.model.PresignedGetObjectRequest;
 
 import java.io.IOException;
 import java.time.Duration;
 
 @Service
 @RequiredArgsConstructor
-public class AwsS3ServiceImpl implements AwsS3Service {
+public class AwsServiceImpl implements AwsService {
 
     private final S3Client s3Client;
     private final S3Presigner s3Presigner;
 
-    @Value("${aws.bucket}")
-    private String bucket;
-
     @Override
-    public String upload(MultipartFile image, String key) {
+    public String uploadImage(String bucket, MultipartFile image, String key) {
         try {
             PutObjectRequest putObjectRequest = PutObjectRequest.builder()
                     .bucket(bucket)
@@ -41,26 +38,28 @@ public class AwsS3ServiceImpl implements AwsS3Service {
     }
 
     @Override
-    public String generatePresignedUrl(String key, String contentType) {
-        PutObjectRequest putObjectRequest = PutObjectRequest.builder()
+    public String generatePresignedUrl(String bucket, String key, String contentType) {
+        GetObjectRequest getObjectRequest = GetObjectRequest.builder()
                 .bucket(bucket)
                 .key(key)
-                .contentType(contentType)
+                //.contentType(contentType)
                 .build();
-        PresignedPutObjectRequest presignedRequest = s3Presigner.presignPutObject(presignRequest -> presignRequest
-                .putObjectRequest(putObjectRequest)
-                .signatureDuration(Duration.ofDays(5))
+        PresignedGetObjectRequest presignedRequest = s3Presigner.presignGetObject(presignRequest -> presignRequest
+                .getObjectRequest(getObjectRequest)
+                .signatureDuration(Duration.ofHours(5))
+                .build()
         );
         return presignedRequest.url().toString();
     }
 
     @Override
-    public void deleteImage(String key) {
+    public Boolean deleteImage(String bucket, String key) {
         DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
                 .bucket(bucket)
                 .key(key)
                 .build();
         s3Client.deleteObject(deleteObjectRequest);
+        return true;
     }
 
 }

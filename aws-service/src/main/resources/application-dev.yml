@@ -1,0 +1,17 @@
+server:
+  port: ${SERVER_PORT:8088}
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 6MB
+      max-request-size: 10MB
+
+aws:
+  region: ${AWS_REGION:eu-central-1}
+  access-key: ${AWS_DEV_USER_ACCESS_KEY:AKIA3ZYW64K2QIKAEH7Z}
+  secret-key: ${AWS_DEV_USER_SECRET_KEY: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}
+
+logging:
+  level:
+    org.springframework.security: debug

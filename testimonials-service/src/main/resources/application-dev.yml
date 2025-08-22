@@ -14,18 +14,16 @@ spring:
       max-file-size: 6MB
       max-request-size: 10MB
 
+aws:
+  bucket: ${AWS_TESTIMONIALS_DEV_BUCKET:helixgpo-dev-s3-testimonial-images}
+  service:
+    base-url: http://${AWS_SERVICE_HOST:localhost}:${AWS_SERVICE_PORT:8088}
 project:
   service:
     base-url: http://${PROJECTS_SERVICE_HOST:localhost}:${PROJECTS_SERVICE_PORT:8084}
 company:
   service:
     base-url: http://${COMPANY_SERVICE_HOST:localhost}:${COMPANY_SERVICE_PORT:8086}
-
-aws:
-  region: ${AWS_REGION}
-  access-key: ${AWS_DEV_USER_ACCESS_KEY}
-  secret-key: ${AWS_DEV_USER_SECRET_KEY}
-  bucket: ${AWS_TESTIMONIALS_DEV_BUCKET}
 
 logging:
   level:

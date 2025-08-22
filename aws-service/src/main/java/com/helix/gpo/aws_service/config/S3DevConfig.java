@@ -1,4 +1,4 @@
-package com.helix.gpo.testimonials_service.config;
+package com.helix.gpo.aws_service.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

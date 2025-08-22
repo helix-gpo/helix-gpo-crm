@@ -55,11 +55,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
 //    @ExceptionHandler(Exception.class)
-//    public ResponseEntity<ErrorResponse> handleGlobalException(Exception exception,
-//                                                               WebRequest webRequest) {
+//    public ResponseEntity<ErrorResponse> handleGlobalException(WebRequest webRequest, Locale locale) {
+//        String message = messageSource.getMessage("error.internal.server.error", null, locale);
 //        ErrorResponse errorDetails = new ErrorResponse(
 //                LocalDateTime.now(),
-//                exception.getMessage(),
+//                message,
 //                webRequest.getDescription(false),
 //                "INTERNAL_SERVER_ERROR",
 //                HttpStatus.INTERNAL_SERVER_ERROR.value()

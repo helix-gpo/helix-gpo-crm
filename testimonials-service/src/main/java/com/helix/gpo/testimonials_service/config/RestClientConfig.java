@@ -1,5 +1,6 @@
 package com.helix.gpo.testimonials_service.config;
 
+import com.helix.gpo.testimonials_service.client.AwsClient;
 import com.helix.gpo.testimonials_service.client.CompanyClient;
 import com.helix.gpo.testimonials_service.client.ProjectClient;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,6 +23,9 @@ public class RestClientConfig {
     @Value("${company.service.base-url}")
     private String companyServiceBaseUrl;
 
+    @Value("${aws.service.base-url}")
+    private String awsServiceBaseUrl;
+
     @Bean
     public ProjectClient projectClient() {
         RestClient restClient = RestClient.builder()
@@ -42,6 +46,17 @@ public class RestClientConfig {
         var restClientAdapter = RestClientAdapter.create(restClient);
         var httpServerProxyFactory = HttpServiceProxyFactory.builderFor(restClientAdapter).build();
         return httpServerProxyFactory.createClient(CompanyClient.class);
+    }
+
+    @Bean
+    public AwsClient awsClient() {
+        RestClient restClient = RestClient.builder()
+                .baseUrl(awsServiceBaseUrl)
+                .requestFactory(getJdkClientRequestFactory())
+                .build();
+        var restClientAdapter = RestClientAdapter.create(restClient);
+        var httpServerProxyFactory = HttpServiceProxyFactory.builderFor(restClientAdapter).build();
+        return httpServerProxyFactory.createClient(AwsClient.class);
     }
 
     private JdkClientHttpRequestFactory getJdkClientRequestFactory() {

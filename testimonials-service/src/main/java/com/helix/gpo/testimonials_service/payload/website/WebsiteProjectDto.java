@@ -1,5 +1,6 @@
 package com.helix.gpo.testimonials_service.payload.website;
 
+import com.helix.gpo.testimonials_service.payload.TagDto;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -19,6 +20,6 @@ public class WebsiteProjectDto {
     private LocalDate endDate;
     private byte[] image;
     private WebsitePartnerDto websitePartnerDto;
-    private List<String> tags;
+    private List<TagDto> tags;
 
 }

@@ -6,13 +6,13 @@ import com.helix.gpo.testimonials_service.payload.TestimonialDtoResponse;
 
 public class TestimonialMapper {
 
-    public static TestimonialDtoResponse mapToTestimonialDto(Testimonial testimonial) {
+    public static TestimonialDtoResponse mapToTestimonialDto(Testimonial testimonial, String imageUrl) {
         return TestimonialDtoResponse.builder()
                 .id(testimonial.getId())
                 .title(testimonial.getTitle())
                 .description(testimonial.getDescription())
                 .result(testimonial.getResult())
-                .imageUrl(testimonial.getImageUrl())
+                .imageUrl(imageUrl)
                 .creationDate(testimonial.getCreationDate())
                 .lastUpdate(testimonial.getLastUpdate())
                 .showOnWebsite(testimonial.getShowOnWebsite())
