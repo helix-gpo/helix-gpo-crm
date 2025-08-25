@@ -8,8 +8,9 @@
 - Employee Service
 
 ## General Todos for Website:
-- implement security (for website - client credentials for cross service communication)
-- integrate an ftp server for images and files
+- Secret API Key for cross service communication in backend (secret key environment variable)
+- Public API key for public access through website (angular environment variable)
+- Rate limiting in all services
 
 ## Ideas:
-- Cronjobs for Account Transactions (send them to dad) 
+- Cronjobs for Account Transactions (send them to dad)

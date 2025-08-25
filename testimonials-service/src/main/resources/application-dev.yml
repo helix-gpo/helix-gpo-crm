@@ -13,6 +13,15 @@ spring:
     multipart:
       max-file-size: 6MB
       max-request-size: 10MB
+  security:
+    user:
+      name: ${TESTIMONIAL_SERVICE_SECURITY_USERNAME:user}
+      password: ${TESTIMONIAL_SERVICE_SECURITY_PASSWORD:password}
+
+website:
+  security:
+    api-key-header: ${WEBSITE_API_KEY_HEADER:WEBSITE_API_KEY_HEADER}
+    api-key: ${WEBSITE_API_KEY:api-key-value}
 
 aws:
   bucket: ${AWS_TESTIMONIALS_DEV_BUCKET:helixgpo-dev-s3-testimonial-images}

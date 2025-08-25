@@ -9,6 +9,15 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+  security:
+    user:
+      name: ${PROJECT_SERVICE_SECURITY_USERNAME:user}
+      password: ${PROJECT_SERVICE_SECURITY_PASSWORD:password}
+
+website:
+  security:
+    api-key-header: ${WEBSITE_API_KEY_HEADER:WEBSITE_API_KEY_HEADER}
+    api-key: ${WEBSITE_API_KEY:api-key-value}
 
 aws:
   bucket: ${AWS_PROJECTS_DEV_BUCKET:helixgpo-dev-s3-project-images}

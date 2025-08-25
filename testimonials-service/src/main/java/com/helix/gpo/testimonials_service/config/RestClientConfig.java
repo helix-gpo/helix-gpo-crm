@@ -3,6 +3,8 @@ package com.helix.gpo.testimonials_service.config;
 import com.helix.gpo.testimonials_service.client.AwsClient;
 import com.helix.gpo.testimonials_service.client.CompanyClient;
 import com.helix.gpo.testimonials_service.client.ProjectClient;
+import com.helix.gpo.testimonials_service.security.ApiKeyInterceptor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +17,10 @@ import java.net.http.HttpClient;
 import java.time.Duration;
 
 @Configuration
+@RequiredArgsConstructor
 public class RestClientConfig {
+
+    private final ApiKeyInterceptor apiKeyInterceptor;
 
     @Value("${project.service.base-url}")
     private String projectServiceBaseUrl;
@@ -30,6 +35,7 @@ public class RestClientConfig {
     public ProjectClient projectClient() {
         RestClient restClient = RestClient.builder()
                 .baseUrl(projectServiceBaseUrl)
+                .requestInterceptor(apiKeyInterceptor)
                 .requestFactory(getJdkClientRequestFactory())
                 .build();
         var restClientAdapter = RestClientAdapter.create(restClient);

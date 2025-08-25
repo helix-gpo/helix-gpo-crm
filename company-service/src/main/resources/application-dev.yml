@@ -9,6 +9,10 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+  security:
+    user:
+      name: ${COMPANY_SERVICE_SECURITY_USERNAME:user}
+      password: ${COMPANY_SERVICE_SECURITY_PASSWORD:password}
 
 project:
   service:

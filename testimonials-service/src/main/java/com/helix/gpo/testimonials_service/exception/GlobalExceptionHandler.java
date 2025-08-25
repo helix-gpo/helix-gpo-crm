@@ -1,5 +1,6 @@
 package com.helix.gpo.testimonials_service.exception;
 
+import com.helix.gpo.testimonials_service.exception.types.InvalidApiKeyException;
 import com.helix.gpo.testimonials_service.exception.types.InvalidAuthTokenException;
 import com.helix.gpo.testimonials_service.exception.types.TestimonialAlreadyExistsException;
 import lombok.RequiredArgsConstructor;
@@ -52,6 +53,19 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 HttpStatus.FORBIDDEN.value()
         );
         return new ResponseEntity<>(errorDetails, HttpStatus.FORBIDDEN);
+    }
+
+    @ExceptionHandler(InvalidApiKeyException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidApiKeyException(WebRequest webRequest, Locale locale) {
+        String message = messageSource.getMessage("error.invalid.api.key", null, locale);
+        ErrorResponse errorDetails = new ErrorResponse(
+                LocalDateTime.now(),
+                message,
+                webRequest.getDescription(true),
+                "UNAUTHORIZED",
+                HttpStatus.UNAUTHORIZED.value()
+        );
+        return new ResponseEntity<>(errorDetails, HttpStatus.UNAUTHORIZED);
     }
 
 //    @ExceptionHandler(Exception.class)

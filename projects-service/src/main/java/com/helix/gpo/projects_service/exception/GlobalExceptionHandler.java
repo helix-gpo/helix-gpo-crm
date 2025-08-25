@@ -1,5 +1,6 @@
 package com.helix.gpo.projects_service.exception;
 
+import com.helix.gpo.projects_service.exception.types.InvalidApiKeyException;
 import com.helix.gpo.projects_service.exception.types.ProjectNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
@@ -40,6 +41,19 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 HttpStatus.NOT_FOUND.value()
         );
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(InvalidApiKeyException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidApiKeyException(WebRequest webRequest, Locale locale) {
+        String message = messageSource.getMessage("error.invalid.api.key", null, locale);
+        ErrorResponse errorDetails = new ErrorResponse(
+                LocalDateTime.now(),
+                message,
+                webRequest.getDescription(true),
+                "UNAUTHORIZED",
+                HttpStatus.UNAUTHORIZED.value()
+        );
+        return new ResponseEntity<>(errorDetails, HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(Exception.class)

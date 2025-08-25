@@ -6,6 +6,10 @@ spring:
     multipart:
       max-file-size: 6MB
       max-request-size: 10MB
+  security:
+    user:
+      name: ${AWS_SERVICE_SECURITY_USERNAME:user}
+      password: ${AWS_SERVICE_SECURITY_PASSWORD:password}
 
 aws:
   region: ${AWS_REGION:eu-central-1}
