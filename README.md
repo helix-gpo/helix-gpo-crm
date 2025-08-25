@@ -6,10 +6,10 @@
 - Customer Service
 - Management Service
 - Employee Service
+- Aws Service (Files, Documents, Images)
 
 ## General Todos for Website:
 - Secret API Key for cross service communication in backend (secret key environment variable)
-- Public API key for public access through website (angular environment variable)
 - Rate limiting in all services
 
 ## Ideas:
