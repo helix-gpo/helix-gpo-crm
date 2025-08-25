@@ -33,7 +33,7 @@ public class Address {
     @Column(nullable = false)
     private String state;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", referencedColumnName = "id")
     private Company company;
 

@@ -17,12 +17,12 @@ public class BankDetails {
     private Long id;
 
     private String accountHolderName;
-
     private String iban;
-
     private String bic;
+    private String bankName;
+    private String country;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", referencedColumnName = "id")
     private Company company;
 
