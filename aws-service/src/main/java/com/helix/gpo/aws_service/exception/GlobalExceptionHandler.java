@@ -1,8 +1,7 @@
-package com.helix.gpo.testimonials_service.exception;
+package com.helix.gpo.aws_service.exception;
 
-import com.helix.gpo.testimonials_service.exception.types.InvalidApiKeyException;
-import com.helix.gpo.testimonials_service.exception.types.InvalidAuthTokenException;
-import com.helix.gpo.testimonials_service.exception.types.TestimonialAlreadyExistsException;
+import com.helix.gpo.aws_service.exception.types.InvalidApiKeyException;
+import com.helix.gpo.aws_service.exception.types.UploadFailedException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
@@ -29,32 +28,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     private final MessageSource messageSource;
 
-    @ExceptionHandler(TestimonialAlreadyExistsException.class)
-    public ResponseEntity<ErrorResponse> handleTestimonialAlreadyExistsException(WebRequest webRequest, Locale locale) {
-        String message = messageSource.getMessage("error.testimonial.already.exists", null, locale);
-        ErrorResponse errorDetails = new ErrorResponse(
-                LocalDateTime.now(),
-                message,
-                webRequest.getDescription(false),
-                "CONFLICT",
-                HttpStatus.CONFLICT.value()
-        );
-        return new ResponseEntity<>(errorDetails, HttpStatus.CONFLICT);
-    }
-
-    @ExceptionHandler(InvalidAuthTokenException.class)
-    public ResponseEntity<ErrorResponse> handleInvalidAuthTokenException(WebRequest webRequest, Locale locale) {
-        String message = messageSource.getMessage("error.invalid.auth.token", null, locale);
-        ErrorResponse errorDetails = new ErrorResponse(
-                LocalDateTime.now(),
-                message,
-                webRequest.getDescription(true),
-                "FORBIDDEN",
-                HttpStatus.FORBIDDEN.value()
-        );
-        return new ResponseEntity<>(errorDetails, HttpStatus.FORBIDDEN);
-    }
-
     @ExceptionHandler(InvalidApiKeyException.class)
     public ResponseEntity<ErrorResponse> handleInvalidApiKeyException(WebRequest webRequest, Locale locale) {
         String message = messageSource.getMessage("error.invalid.api.key", null, locale);
@@ -66,6 +39,19 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 HttpStatus.UNAUTHORIZED.value()
         );
         return new ResponseEntity<>(errorDetails, HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(UploadFailedException.class)
+    public ResponseEntity<ErrorResponse> handleUploadFailedException(WebRequest webRequest, Locale locale) {
+        String message = messageSource.getMessage("error.upload.failed", null, locale);
+        ErrorResponse errorDetails = new ErrorResponse(
+                LocalDateTime.now(),
+                message,
+                webRequest.getDescription(true),
+                "BAD_REQUEST",
+                HttpStatus.BAD_REQUEST.value()
+        );
+        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(Exception.class)

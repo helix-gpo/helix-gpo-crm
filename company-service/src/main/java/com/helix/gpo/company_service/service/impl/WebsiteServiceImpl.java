@@ -1,6 +1,7 @@
 package com.helix.gpo.company_service.service.impl;
 
 import com.helix.gpo.company_service.entity.Partner;
+import com.helix.gpo.company_service.exception.types.ResourceNotFoundException;
 import com.helix.gpo.company_service.payload.website.WebsiteCompanyDto;
 import com.helix.gpo.company_service.payload.website.WebsitePartnerDto;
 import com.helix.gpo.company_service.repository.PartnerRepository;
@@ -18,7 +19,7 @@ public class WebsiteServiceImpl implements WebsiteService {
     @Override
     public WebsitePartnerDto getWebsitePartnerWithCompanyInfo(Long partnerId) {
         Partner partner = partnerRepository.findById(partnerId).orElseThrow(
-                () -> new RuntimeException("Partner not found with ID: " + partnerId)
+                () -> new ResourceNotFoundException("", partnerId.toString(), "Partner")
         );
 
         WebsitePartnerDto websitePartnerDto = WebsiteMapper.mapToWebsitePartnerDto(partner);

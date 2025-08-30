@@ -14,6 +14,7 @@ import com.helix.gpo.testimonials_service.service.WebsiteTestimonialService;
 import com.helix.gpo.testimonials_service.util.TestimonialMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class WebsiteTestimonialServiceImpl implements WebsiteTestimonialService {
 
@@ -67,6 +69,7 @@ public class WebsiteTestimonialServiceImpl implements WebsiteTestimonialService 
 
         invalidateAuthToken(websiteTestimonialRequest.getAuthTokenValue());
 
+        log.info("New Testimonial saved successfully. {}", savedTestimonial);
         return finalTestimonial;
     }
 

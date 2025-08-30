@@ -3,6 +3,7 @@ package com.helix.gpo.company_service.service.impl;
 import com.helix.gpo.company_service.client.ProjectClient;
 import com.helix.gpo.company_service.entity.AuthToken;
 import com.helix.gpo.company_service.entity.Partner;
+import com.helix.gpo.company_service.exception.types.ResourceNotFoundException;
 import com.helix.gpo.company_service.payload.AuthTokenDto;
 import com.helix.gpo.company_service.payload.website.WebsiteProjectDto;
 import com.helix.gpo.company_service.repository.AuthTokenRepository;
@@ -26,7 +27,7 @@ public class AuthTokenServiceImpl implements AuthTokenService {
     public AuthTokenDto initTestimonialProcess(WebsiteProjectDto websiteProjectDto) {
         Long partnerId = websiteProjectDto.getWebsitePartnerDto().getId();
         Partner partner = partnerRepository.findById(partnerId).orElseThrow(
-                () -> new RuntimeException("Partner does not exist with ID: " + partnerId)
+                () -> new ResourceNotFoundException("", partnerId.toString(), "Partner")
         );
 
         AuthToken authToken = AuthToken.builder()
@@ -78,9 +79,10 @@ public class AuthTokenServiceImpl implements AuthTokenService {
 
     @Override
     public Boolean invalidateAuthToken(String authTokenValue) {
-        AuthToken authToken = authTokenRepository.findByValue(encodeToBase64(authTokenValue)).orElseThrow(
-                () -> new RuntimeException("Auth token does not exist for this value!")
-        );
+        AuthToken authToken = authTokenRepository.findByValue(encodeToBase64(authTokenValue)).orElse(null);
+        if (authToken == null) {
+            return false;
+        }
 
         authToken.setUsed(true);
         authToken.setValid(false);
@@ -92,7 +94,7 @@ public class AuthTokenServiceImpl implements AuthTokenService {
     @Override
     public Long getProjectIdByAuthTokenValue(String authTokenValue) {
         AuthToken authToken = authTokenRepository.findByValue(encodeToBase64(authTokenValue)).orElseThrow(
-                () -> new RuntimeException("Auth token does not exist for this value!")
+                () -> new ResourceNotFoundException("", authTokenValue, "Authentifizierungs-Token")
         );
         return authToken.getProjectId();
     }

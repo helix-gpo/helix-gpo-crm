@@ -47,6 +47,7 @@ public class RestClientConfig {
     public CompanyClient companyClient() {
         RestClient restClient = RestClient.builder()
                 .baseUrl(companyServiceBaseUrl)
+                .requestInterceptor(apiKeyInterceptor)
                 .requestFactory(getJdkClientRequestFactory())
                 .build();
         var restClientAdapter = RestClientAdapter.create(restClient);
@@ -58,6 +59,7 @@ public class RestClientConfig {
     public AwsClient awsClient() {
         RestClient restClient = RestClient.builder()
                 .baseUrl(awsServiceBaseUrl)
+                .requestInterceptor(apiKeyInterceptor)
                 .requestFactory(getJdkClientRequestFactory())
                 .build();
         var restClientAdapter = RestClientAdapter.create(restClient);

@@ -2,4 +2,4 @@ spring:
   application:
     name: company-service
   profiles:
-    active: ${ACTIVE_SPRING_PROFILE_DEV:dev}
+    active: ${ACTIVE_SPRING_PROFILE:dev}

@@ -1,5 +1,6 @@
 package com.helix.gpo.aws_service.service.impl;
 
+import com.helix.gpo.aws_service.exception.types.UploadFailedException;
 import com.helix.gpo.aws_service.service.AwsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,7 @@ public class AwsServiceImpl implements AwsService {
             s3Client.putObject(putObjectRequest, RequestBody.fromBytes(image.getBytes()));
             return key;
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new UploadFailedException("");
         }
     }
 
@@ -42,7 +43,6 @@ public class AwsServiceImpl implements AwsService {
         GetObjectRequest getObjectRequest = GetObjectRequest.builder()
                 .bucket(bucket)
                 .key(key)
-                //.contentType(contentType)
                 .build();
         PresignedGetObjectRequest presignedRequest = s3Presigner.presignGetObject(presignRequest -> presignRequest
                 .getObjectRequest(getObjectRequest)

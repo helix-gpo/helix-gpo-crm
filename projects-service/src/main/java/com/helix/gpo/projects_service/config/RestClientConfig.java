@@ -2,6 +2,8 @@ package com.helix.gpo.projects_service.config;
 
 import com.helix.gpo.projects_service.client.AwsClient;
 import com.helix.gpo.projects_service.client.CompanyClient;
+import com.helix.gpo.projects_service.security.ApiKeyInterceptor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +16,10 @@ import java.net.http.HttpClient;
 import java.time.Duration;
 
 @Configuration
+@RequiredArgsConstructor
 public class RestClientConfig {
+
+    private final ApiKeyInterceptor apiKeyInterceptor;
 
     @Value("${company.service.base-url}")
     private String companyServiceBaseUrl;
@@ -26,6 +31,7 @@ public class RestClientConfig {
     public CompanyClient companyClient() {
         RestClient restClient = RestClient.builder()
                 .baseUrl(companyServiceBaseUrl)
+                .requestInterceptor(apiKeyInterceptor)
                 .requestFactory(getJdkClientRequestFactory())
                 .build();
         var restClientAdapter = RestClientAdapter.create(restClient);
@@ -37,6 +43,7 @@ public class RestClientConfig {
     public AwsClient awsClient() {
         RestClient restClient = RestClient.builder()
                 .baseUrl(awsServiceBaseUrl)
+                .requestInterceptor(apiKeyInterceptor)
                 .requestFactory(getJdkClientRequestFactory())
                 .build();
         var restClientAdapter = RestClientAdapter.create(restClient);
