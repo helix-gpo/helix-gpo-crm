@@ -3,9 +3,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://${DB_HOST_DEV:localhost}:${DB_PORT_DEV:3306}/${DB_NAME_DEV:helix_gpo_crm_testimonials_service}
-    username: ${DB_USERNAME_DEV:root}
-    password: ${DB_PASSWORD_DEV:FB6202Borussia!}
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:helix_gpo_crm_testimonials_service}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:FB6202Borussia!}
   jpa:
     hibernate:
       ddl-auto: update
@@ -36,7 +36,7 @@ company:
 
 cors:
   allowed-origins:
-    - "http://${FRONTEND_DEV_HOST:localhost}:${FRONTEND_DEV_PORT:4200}"
+    - "http://${FRONTEND_HOST:localhost}:${FRONTEND_PORT:4200}"
   allowed-methods:
     - GET
     - POST

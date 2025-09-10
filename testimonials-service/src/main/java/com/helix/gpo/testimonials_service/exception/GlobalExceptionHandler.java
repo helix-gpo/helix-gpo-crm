@@ -52,6 +52,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 "FORBIDDEN",
                 HttpStatus.FORBIDDEN.value()
         );
+        logger.error("Fehler-Test UTF-8: " + errorDetails);
         return new ResponseEntity<>(errorDetails, HttpStatus.FORBIDDEN);
     }
 
