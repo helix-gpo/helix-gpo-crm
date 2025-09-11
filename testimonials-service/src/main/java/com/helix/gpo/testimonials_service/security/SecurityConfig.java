@@ -46,8 +46,6 @@ public class SecurityConfig {
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(false);
         configuration.setMaxAge(3600L);
-        System.out.println(corsConfig.getAllowedOrigins());
-        System.out.println(corsConfig.getAllowedMethods());
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
