@@ -19,7 +19,7 @@ website:
 aws:
   region: ${AWS_REGION:eu-central-1}
   access-key: ${AWS_DEV_USER_ACCESS_KEY}
-  secret-key: ${AWS_DEV_USER_SECRET_KEY/MlXaIcKE9m}
+  secret-key: ${AWS_DEV_USER_SECRET_KEY}
 
 logging:
   level:
