@@ -24,7 +24,7 @@ website:
     api-key: ${WEBSITE_API_KEY}
 
 aws:
-  bucket: ${AWS_TESTIMONIALS_DEV_BUCKET}
+  bucket: ${AWS_TESTIMONIALS_TEST_BUCKET}
   service:
     base-url: http://${AWS_SERVICE_CONNECT_DOMAIN}
 project:
