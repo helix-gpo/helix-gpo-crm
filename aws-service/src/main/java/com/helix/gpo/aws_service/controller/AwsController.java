@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-@RequestMapping(path = "/api/v1/aws")
+@RequestMapping(path = "/api/v1/aws/website")
 @RequiredArgsConstructor
 public class AwsController {
 

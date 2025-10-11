@@ -6,13 +6,13 @@ import org.springframework.web.service.annotation.PostExchange;
 
 public interface CompanyClient {
 
-    @PostExchange(value = "/api/v1/auth-token/validate")
+    @PostExchange(value = "/api/v1/companies/auth-token/validate")
     Boolean validateAuthToken(@RequestParam(name = "authTokenValue") String authTokenValue);
 
-    @PostExchange(value = "/api/v1/auth-token/invalidate")
+    @PostExchange(value = "/api/v1/companies/auth-token/invalidate")
     Boolean invalidateAuthToken(@RequestParam(name = "authTokenValue") String authTokenValue);
 
-    @GetExchange(value = "/api/v1/auth-token/project")
+    @GetExchange(value = "/api/v1/companies/auth-token/project")
     Long getProjectIdByAuthTokenValue(@RequestParam(name = "authTokenValue") String authTokenValue);
 
 }

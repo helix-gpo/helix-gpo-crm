@@ -28,6 +28,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/actuator/**").permitAll()
                         .requestMatchers("/api/v1/website/partners/**").permitAll()
                         .requestMatchers("/api/v1/auth-token/**").permitAll()
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()

@@ -9,17 +9,17 @@ import org.springframework.web.service.annotation.PostExchange;
 
 public interface AwsClient {
 
-    @PostExchange(value = "/api/v1/aws")
+    @PostExchange(value = "/api/v1/aws/website")
     String uploadImage(@RequestParam(name = "bucket") String bucket,
                        @RequestPart(name = "image") MultipartFile image,
                        @RequestParam(name = "key") String key);
 
-    @GetExchange(value = "/api/v1/aws")
+    @GetExchange(value = "/api/v1/aws/website")
     String generatePresignedUrl(@RequestParam(name = "bucket") String bucket,
                                 @RequestParam(name = "key") String key,
                                 @RequestParam(name = "contentType") String contentType);
 
-    @DeleteExchange(value = "/api/v1/aws")
+    @DeleteExchange(value = "/api/v1/aws/website")
     Boolean delete(@RequestParam(name = "bucket") String bucket,
                    @RequestParam(name = "key") String key);
 
