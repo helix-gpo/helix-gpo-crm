@@ -1,67 +1,59 @@
 -- insert company values
 insert into companies (id, name, legal_form, tax_number, vat_id)
-values (1, 'Helix Solutions GmbH', 'GmbH', '123/456/7890', 'DE123456789');
+values (1, 'Aventra Systems GmbH', 'GmbH', '123/456/7890', 'DE123456789');
 insert into companies (id, name, legal_form, tax_number, vat_id)
-values (2, 'NextGen Consulting AG', 'AG', '987/654/3210', 'DE987654321');
+values (2, 'Nordic Consult AG', 'AG', '987/654/3210', 'DE987654321');
 insert into companies (id, name, legal_form, tax_number, vat_id)
-values (3, 'Visionary Tech UG', 'UG', '112/233/4455', 'DE112233445');
+values (3, 'BluePeak Innovations UG', 'UG', '112/233/4455', 'DE112233445');
 insert into companies (id, name, legal_form, tax_number, vat_id)
-values (4, 'Green Future AG', 'AG', '667/788/9900', 'DE667788990');
+values (4, 'EcoTech Solutions AG', 'AG', '667/788/9900', 'DE667788990');
 insert into companies (id, name, legal_form, tax_number, vat_id)
-values (5, 'DataWave SE', 'SE', '554/433/2211', 'DE554433221');
+values (5, 'DataCore SE', 'SE', '554/433/2211', 'DE554433221');
 
 -- insert partners values
 insert into partners (id, name, email, phone_number, job, company_id)
-values (1, 'Max Mustermann', 'max.mustermann@helix.de', '+49 30 1234567', 'Geschäftsführer', 1);
+values (1, 'Julia Neumann', 'julia.neumann@aventra.de', '+49 30 2345678', 'Geschäftsführerin', 1);
 insert into partners (id, name, email, phone_number, job, company_id)
-values (2, 'Anna Schmidt', 'anna.schmidt@nextgen.de', '+49 89 7654321', 'Senior Consultant', 2);
+values (2, 'Patrick Lehmann', 'patrick.lehmann@nordicconsult.de', '+49 89 1234987', 'Senior Consultant', 2);
 insert into partners (id, name, email, phone_number, job, company_id)
-values (3, 'Lukas Becker', 'lukas.becker@nextgen.de', '+49 89 7654333', 'Projektleiter', 2);
+values (3, 'Stefan Roth', 'stefan.roth@bluepeak.de', '+49 40 998822', 'Projektleiter', 3);
 insert into partners (id, name, email, phone_number, job, company_id)
-values (4, 'Sophie Klein', 'sophie.klein@visionary.de', '+49 40 998877', 'Founder', 3);
+values (4, 'Miriam Bauer', 'miriam.bauer@ecotech.de', '+49 711 556677', 'Head of Sustainability', 4);
 insert into partners (id, name, email, phone_number, job, company_id)
-values (5, 'Martin Vogel', 'martin.vogel@greenfuture.de', '+49 711 445566', 'Nachhaltigkeitsbeauftragter', 4);
-insert into partners (id, name, email, phone_number, job, company_id)
-values (6, 'Clara Hoffmann', 'clara.hoffmann@datawave.de', '+49 69 332211', 'CFO', 5);
-insert into partners (id, name, email, phone_number, job, company_id)
-values (7, 'Jonas Meyer', 'jonas.meyer@datawave.de', '+49 69 332244', 'Head of IT', 5);
+values (5, 'Tobias Krüger', 'tobias.krueger@datacore.de', '+49 69 443322', 'CTO', 5);
 
 -- insert into addresses
 insert into addresses (id, street, number, address_addition, city, zip_code, state, company_id)
-values (1, 'Innovationsweg', '12', '2. OG', 'Berlin', '10115', 'Germany', 1);
+values (1, 'Innovationsallee', '5', '3. OG', 'Berlin', '10117', 'Germany', 1);
 insert into addresses (id, street, number, address_addition, city, zip_code, state, company_id)
-values (2, 'Beraterring', '45', null, 'München', '80331', 'Germany', 2);
+values (2, 'Beraterring', '18', null, 'München', '80333', 'Germany', 2);
 insert into addresses (id, street, number, address_addition, city, zip_code, state, company_id)
-values (3, 'Startup-Allee', '7a', null, 'Hamburg', '20095', 'Germany', 3);
+values (3, 'Hansebogen', '9', null, 'Hamburg', '20097', 'Germany', 3);
 insert into addresses (id, street, number, address_addition, city, zip_code, state, company_id)
-values (4, 'Nachhaltigkeitsstraße', '88', null, 'Stuttgart', '70173', 'Germany', 4);
+values (4, 'Nachhaltigkeitsweg', '22', null, 'Stuttgart', '70174', 'Germany', 4);
 insert into addresses (id, street, number, address_addition, city, zip_code, state, company_id)
-values (5, 'Datenring', '101', null, 'Franktfurt am Main', '60311', 'Germany', 5);
+values (5, 'Digitalstraße', '77', null, 'Frankfurt am Main', '60313', 'Germany', 5);
 
--- insert into bank-details values
+-- insert into bank_details values
 insert into bank_details (id, account_holder_name, iban, bic, bank_name, country, company_id)
-values (1, 'Helix Solutions GmbH', 'DE89370400440532013000', 'COBADEFFXXX', 'Commerzbank', 'DE', 1);
+values (1, 'Aventra Systems GmbH', 'DE89370400440532013000', 'COBADEFFXXX', 'Commerzbank', 'DE', 1);
 insert into bank_details (id, account_holder_name, iban, bic, bank_name, country, company_id)
-values (2, 'NextGen Consulting AG', 'DE44500105175407324931', 'INGDDEFFXXX', 'ING', 'DE', 2);
+values (2, 'Nordic Consult AG', 'DE44500105175407324931', 'INGDDEFFXXX', 'ING', 'DE', 2);
 insert into bank_details (id, account_holder_name, iban, bic, bank_name, country, company_id)
-values (3, 'Visionary Tech UG', 'DE12500105170648489890', 'DEUTDEFFXXX', 'Deutsche Bank', 'DE', 3);
+values (3, 'BluePeak Innovations UG', 'DE12500105170648489890', 'DEUTDEFFXXX', 'Deutsche Bank', 'DE', 3);
 insert into bank_details (id, account_holder_name, iban, bic, bank_name, country, company_id)
-values (4, 'Green Future AG', 'DE22500105177891011121', 'BYLADEMMXXX', 'Sparkasse', 'DE', 4);
+values (4, 'EcoTech Solutions AG', 'DE22500105177891011121', 'BYLADEMMXXX', 'Sparkasse', 'DE', 4);
 insert into bank_details (id, account_holder_name, iban, bic, bank_name, country, company_id)
-values (5, 'DataWave SE', 'DE66500105176543219876', 'PBNKDEFFXXX', 'Postbank', 'DE', 5);
+values (5, 'DataCore SE', 'DE66500105176543219876', 'PBNKDEFFXXX', 'Postbank', 'DE', 5);
 
--- insert into auth-token values
+-- insert into auth_tokens values
 insert into auth_tokens (id, value, valid, used, project_id, partner_id)
-values (1, 'MV8zZmRlM2YyYy01ZTc3LTRhOWItYTFjOS0yZmQ3YjFmNWEyYjc=', true,false, 1, 1);
+values (1, 'Q1JNIE9wdGltaWVydW5nXzQ1NTQzYjMxLTRlNzAtNDc3Mi1iZjc5LWRjMTFhM2ZjNGE4Yw==', false, true, 1, 1);
 insert into auth_tokens (id, value, valid, used, project_id, partner_id)
-values (2, 'Ml8zZmRlM2YyYy01ZTc3LTRhOWItYTFjOS0yZmQ3YjFmNWEyYjc=', true,false, 2, 2);
+values (2, 'QW5hbHl0aWNzIERhc2hib2FyZF9lYjA1NDk2MC1kYWE0LTQ5M2UtOGQ0Yy0yNjFjOTk4ZjY5YzM=', false, true, 2, 2);
 insert into auth_tokens (id, value, valid, used, project_id, partner_id)
-values (3, 'M18zZmRlM2YyYy01ZTc3LTRhOWItYTFjOS0yZmQ3YjFmNWEyYjc=', true,false, 3, 3);
+values (3, 'QnVzaW5lc3MgUHJvY2VzcyBSZWRlc2lnbl9iOTZkMzIwZC1jNGEwLTRhYjYtYmVmYS0xNTZmMGE5Njc5MzM=', false, true, 3, 3);
 insert into auth_tokens (id, value, valid, used, project_id, partner_id)
-values (4, 'NF8zZmRlM2YyYy01ZTc3LTRhOWItYTFjOS0yZmQ3YjFmNWEyYjc=', true,false, 4, 4);
+values (4, 'SW9UIERhdGEgSHViX2FiMmY1YzNjLTNiNDAtNGIyMi1hMGVlLTEyMDMxOGYxOGNkYQ==', false, true, 4, 4);
 insert into auth_tokens (id, value, valid, used, project_id, partner_id)
-values (5, 'NV8zZmRlM2YyYy01ZTc3LTRhOWItYTFjOS0yZmQ3YjFmNWEyYjc=', true,false, 5, 5);
-insert into auth_tokens (id, value, valid, used, project_id, partner_id)
-values (6, 'Nl8zZmRlM2YyYy01ZTc3LTRhOWItYTFjOS0yZmQ3YjFmNWEyYjc=', true,false, 6, 1);
-insert into auth_tokens (id, value, valid, used, project_id, partner_id)
-values (7, 'N18zZmRlM2YyYy01ZTc3LTRhOWItYTFjOS0yZmQ3YjFmNWEyYjc=', true,false, 7, 2);
+values (5, 'UHJlZGljdGl2ZSBNYWludGVuYW5jZSBTdWl0ZV83YjlmOWNmMS1kNDUyLTQ4MGYtOTk5ZC1mMGViNGZkMGNkMzM=', false, true, 5, 5);
