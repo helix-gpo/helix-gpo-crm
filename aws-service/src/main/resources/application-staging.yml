@@ -15,9 +15,20 @@ website:
   security:
     api-key-header: ${WEBSITE_API_KEY_HEADER}
     api-key: ${WEBSITE_API_KEY}
+    api-path: ${PERMITTED_PATH}
 
 aws:
   region: ${AWS_REGION}
+
+cors:
+  allowed-origins:
+    - "https://${FRONTEND_DOMAIN}"
+    - "https://${FRONTEND_SUBDOMAIN}"
+    - "https://${CLOUDFRONT_DOMAIN}"
+  allowed-methods:
+    - GET
+    - POST
+    - OPTIONS
 
 logging:
   level:

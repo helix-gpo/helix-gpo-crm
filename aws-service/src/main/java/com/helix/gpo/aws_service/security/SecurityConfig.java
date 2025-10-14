@@ -1,6 +1,8 @@
 package com.helix.gpo.aws_service.security;
 
 import jakarta.servlet.DispatcherType;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -18,14 +20,20 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
+
+    @Value("${website.security.api-path}")
+    private String permittedPath;
+
+    private final CorsConfig corsConfig;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/actuator/**").permitAll()
-                        .requestMatchers("/api/v1/website/aws/**").permitAll()
+                        .requestMatchers(permittedPath).permitAll()
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
                         .anyRequest().authenticated())
@@ -38,8 +46,8 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("*"));
-        configuration.setAllowedMethods(List.of("GET", "POST", "DELETE", "OPTIONS"));
+        configuration.setAllowedOrigins(corsConfig.getAllowedOrigins());
+        configuration.setAllowedMethods(corsConfig.getAllowedMethods());
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(false);
         configuration.setMaxAge(3600L);

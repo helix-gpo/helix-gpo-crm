@@ -15,6 +15,7 @@ website:
   security:
     api-key-header: ${WEBSITE_API_KEY_HEADER}
     api-key: ${WEBSITE_API_KEY}
+    api-path: ${PERMITTED_PATH}
 
 aws:
   region: ${AWS_REGION}
