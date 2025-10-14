@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path = "/api/v1/companies/auth-token")
+@RequestMapping(path = "/api/v1/companies/website/auth-token")
 @RequiredArgsConstructor
 public class AuthTokenController {
 
