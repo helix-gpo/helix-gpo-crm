@@ -11,6 +11,7 @@ import com.helix.gpo.testimonials_service.payload.WebsiteTestimonialRequest;
 import com.helix.gpo.testimonials_service.payload.website.WebsiteProjectDto;
 import com.helix.gpo.testimonials_service.repository.TestimonialRepository;
 import com.helix.gpo.testimonials_service.service.WebsiteTestimonialService;
+import com.helix.gpo.testimonials_service.util.Constants;
 import com.helix.gpo.testimonials_service.util.TestimonialMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -98,9 +99,10 @@ public class WebsiteTestimonialServiceImpl implements WebsiteTestimonialService 
         List<Testimonial> websiteTestimonials = testimonialRepository.findAllByShowOnWebsite(true);
         return websiteTestimonials.stream()
                 .map(testimonial -> {
-                    String imageUrl = testimonial.getImageUrl().isEmpty()
-                            ? testimonial.getImageUrl()
-                            : getPresignedUrl(testimonial.getImageUrl(), testimonial.getContentType());
+                    String awsBucketKey = testimonial.getImageUrl().isEmpty()
+                            ? Constants.PLACEHOLDER_IMAGE
+                            : testimonial.getImageUrl();
+                    String imageUrl = getPresignedUrl(awsBucketKey, testimonial.getContentType());
                     TestimonialDtoResponse testimonialDto = TestimonialMapper.mapToTestimonialDto(testimonial, imageUrl);
                     testimonialDto.setWebsiteProjectDto(getWebsiteProjectFromProjectService(testimonial.getProjectId()));
                     return testimonialDto;
