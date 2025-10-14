@@ -18,6 +18,7 @@ website:
   security:
     api-key-header: ${WEBSITE_API_KEY_HEADER}
     api-key: ${WEBSITE_API_KEY}
+    api-path: ${PERMITTED_PATH}
 
 aws:
   bucket: ${AWS_PROJECTS_STAGING_BUCKET}
@@ -30,6 +31,7 @@ company:
 cors:
   allowed-origins:
     - "https://${FRONTEND_DOMAIN}"
+    - "https://${FRONTEND_SUBDOMAIN}"
   allowed-methods:
     - GET
     - POST
