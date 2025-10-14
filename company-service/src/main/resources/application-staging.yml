@@ -28,6 +28,7 @@ cors:
   allowed-origins:
     - "https://${FRONTEND_DOMAIN}"
     - "https://${FRONTEND_SUBDOMAIN}"
+    - "https://${CLOUDFRONT_DOMAIN}"
   allowed-methods:
     - GET
     - POST
