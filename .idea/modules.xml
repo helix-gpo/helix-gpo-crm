@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/helix-gpo-crm.iml" filepath="$PROJECT_DIR$/.idea/helix-gpo-crm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/projects-service/projects-service.iml" filepath="$PROJECT_DIR$/projects-service/projects-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/testimonials-service/testimonials-service.iml" filepath="$PROJECT_DIR$/testimonials-service/testimonials-service.iml" />
+    </modules>
+  </component>
+</project>
