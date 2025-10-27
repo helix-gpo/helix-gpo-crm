@@ -11,6 +11,7 @@ import com.helix.gpo.projects_service.service.WebsiteProjectService;
 import com.helix.gpo.projects_service.util.WebsiteProjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,7 +29,8 @@ public class WebsiteProjectServiceImpl implements WebsiteProjectService {
 
     @Override
     public List<WebsiteProjectDto> getAllWebsiteProjects() {
-        List<Project> websiteProjects = projectRepository.findAllByShowOnWebsite(true);
+        Sort sort = Sort.by(Sort.Direction.DESC, "startDate");
+        List<Project> websiteProjects = projectRepository.findAllByShowOnWebsite(true, sort);
         return websiteProjects.stream()
                 .map(project -> {
                     String imageUrl = project.getImageUrl().isEmpty()

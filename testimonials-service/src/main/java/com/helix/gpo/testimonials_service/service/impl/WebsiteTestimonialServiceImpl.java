@@ -18,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -96,7 +97,8 @@ public class WebsiteTestimonialServiceImpl implements WebsiteTestimonialService 
 
     @Override
     public List<TestimonialDtoResponse> getAllWebsiteTestimonials() {
-        List<Testimonial> websiteTestimonials = testimonialRepository.findAllByShowOnWebsite(true);
+        Sort sort = Sort.by(Sort.Direction.DESC, "creationDate");
+        List<Testimonial> websiteTestimonials = testimonialRepository.findAllByShowOnWebsite(true, sort);
         return websiteTestimonials.stream()
                 .map(testimonial -> {
                     String awsBucketKey = testimonial.getImageUrl().isEmpty()
