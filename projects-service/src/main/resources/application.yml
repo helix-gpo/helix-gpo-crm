@@ -3,3 +3,11 @@ spring:
     name: projects-service
   profiles:
     active: ${ACTIVE_SPRING_PROFILE_DEV:dev}
+
+server:
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
+      force-response: true

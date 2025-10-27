@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="helix_gpo_crm_testimonials_service@localhost" uuid="738b8c05-1f7d-45b3-9893-ae7075ad9c82">
+    <data-source source="LOCAL" name="helix_gpo_crm_testimonials_service@localhost" uuid="6bc46491-511e-4886-80f5-15126946acf3">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
@@ -13,7 +13,7 @@
       </jdbc-additional-properties>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="helix_gpo_crm_projects_service@localhost" uuid="c9470075-5945-40b6-a8f9-72ad19b0acbc">
+    <data-source source="LOCAL" name="helix_gpo_crm_projects_service@localhost" uuid="d3e0bfb5-b357-4e19-977e-99843a1cb353">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
@@ -21,11 +21,12 @@
       <jdbc-additional-properties>
         <property name="com.intellij.clouds.kubernetes.db.host.port" />
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
+        <property name="com.intellij.clouds.kubernetes.db.resource.type" value="Deployment" />
         <property name="com.intellij.clouds.kubernetes.db.container.port" />
       </jdbc-additional-properties>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="helix_gpo_crm_company_service@localhost" uuid="762e7d62-be3a-49c1-9752-9c875aa045ed">
+    <data-source source="LOCAL" name="helix_gpo_crm_company_service@localhost" uuid="97249255-7e3f-46d3-9c53-bba84d6b0999">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>

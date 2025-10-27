@@ -7,6 +7,7 @@ import lombok.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -42,6 +43,7 @@ public class Project {
 
     private BigDecimal price;
     private String imageUrl;
+    private String contentType;
 
     @Column(nullable = false)
     private Boolean showOnWebsite;
@@ -51,5 +53,14 @@ public class Project {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "project")
     private List<Milestone> milestones;
+
+    @ElementCollection(targetClass = ProjectTag.class)
+    @CollectionTable(
+            name = "project_tags",
+            joinColumns = @JoinColumn(name = "project_id")
+    )
+    @Column(name = "tag", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Set<ProjectTag> projectTags;
 
 }

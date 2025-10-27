@@ -6,10 +6,17 @@
 - Customer Service
 - Management Service
 - Employee Service
+- Aws Service (Files, Documents, Images)
 
 ## General Todos for Website:
-- implement security (for website - client credentials for cross service communication)
-- integrate an ftp server for images and files
+### Frontend:
+### Backend:
 
 ## Ideas:
-- dev/staging/prod paths on s3
+- Cronjobs for Account Transactions (send them to dad)
+
+## Urls - Controller:
+- aws-service               /api/v1/aws*
+- company-service           /api/v1/companies*
+- project-service           /api/v1/projects*
+- testimonials-service      /api/v1/testimonials*

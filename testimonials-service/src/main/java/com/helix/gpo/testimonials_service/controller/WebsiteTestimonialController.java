@@ -14,13 +14,12 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/api/v1/website/testimonials")
+@RequestMapping(path = "/api/v1/testimonials/website")
 @RequiredArgsConstructor
 public class WebsiteTestimonialController {
 
     private final WebsiteTestimonialService websiteTestimonialService;
 
-    // todo: move endpoint to secure service later on!
     @PostMapping(consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
     public ResponseEntity<TestimonialDtoResponse> addTestimonial(@RequestPart(name = "payload") WebsiteTestimonialRequest websiteTestimonialRequest,
                                                                  @RequestPart(name = "image", required = false) MultipartFile image) {

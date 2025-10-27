@@ -3,17 +3,39 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://${DB_HOST_DEV:localhost}:${DB_HOST_DEV:3306}/${DB_NAME_DEV:helix_gpo_crm_projects_service}
-    username: ${DB_USERNAME_DEV:root}
-    password: ${DB_PASSWORD_DEV:FB6202Borussia!}
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:helix_gpo_crm_projects_service}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:FB6202Borussia!}
   jpa:
     hibernate:
       ddl-auto: update
+  security:
+    user:
+      name: ${PROJECT_SERVICE_SECURITY_USERNAME:user}
+      password: ${PROJECT_SERVICE_SECURITY_PASSWORD:password}
 
+website:
+  security:
+    api-key-header: ${WEBSITE_API_KEY_HEADER:WEBSITE_API_KEY_HEADER}
+    api-key: ${WEBSITE_API_KEY:api-key-value}
+    api-path: ${PERMITTED_PATH:/api/v1/projects/website/**}
+
+aws:
+  bucket: ${AWS_PROJECTS_DEV_BUCKET:helixgpo-dev-s3-project-images}
+  service:
+    base-url: http://${AWS_SERVICE_HOST:localhost}:${AWS_SERVICE_PORT:8088}
 company:
   service:
     base-url: http://${COMPANY_SERVICE_HOST:localhost}:${COMPANY_SERVICE_PORT:8086}
 
+cors:
+  allowed-origins:
+    - "http://${FRONTEND_HOST:localhost}:${FRONTEND_PORT:4200}"
+  allowed-methods:
+    - GET
+    - POST
+    - OPTIONS
+
 logging:
   level:
-    org.springframework.security: debug
+    org.springframework.security: ${LOGGING_LEVEL:debug}

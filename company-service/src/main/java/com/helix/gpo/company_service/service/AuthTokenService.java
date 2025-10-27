@@ -11,4 +11,6 @@ public interface AuthTokenService {
 
     Boolean invalidateAuthToken(String authTokenValue);
 
+    Long getProjectIdByAuthTokenValue(String authTokenValue);
+
 }

@@ -1,0 +1,42 @@
+server:
+  port: ${SERVER_PORT}
+
+spring:
+  datasource:
+    url: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+  security:
+    user:
+      name: ${PROJECT_SERVICE_SECURITY_USERNAME}
+      password: ${PROJECT_SERVICE_SECURITY_PASSWORD}
+
+website:
+  security:
+    api-key-header: ${WEBSITE_API_KEY_HEADER}
+    api-key: ${WEBSITE_API_KEY}
+    api-path: ${PERMITTED_PATH}
+
+aws:
+  bucket: ${AWS_PROJECTS_TEST_BUCKET}
+  service:
+    base-url: http://${AWS_SERVICE_CONNECT_DOMAIN}
+company:
+  service:
+    base-url: http://${COMPANY_SERVICE_CONNECT_DOMAIN}
+
+cors:
+  allowed-origins:
+    - "http://${FRONTEND_DOMAIN}"
+    - "https://${FRONTEND_SUBDOMAIN}"
+  allowed-methods:
+    - GET
+    - POST
+    - OPTIONS
+
+logging:
+  level:
+    org.springframework.security: info

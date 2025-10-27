@@ -3,7 +3,6 @@ package com.helix.gpo.testimonials_service.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Getter
@@ -29,6 +28,7 @@ public class Testimonial {
     private Integer result;
 
     private String imageUrl;
+    private String contentType;
 
     @Column(nullable = false)
     private LocalDate creationDate;

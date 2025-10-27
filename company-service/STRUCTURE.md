@@ -36,6 +36,7 @@
 - add logs in services
 - make corresponding service methods transactional
 - secure initTestimonialProcess
+- move security config urls to yml-config-file
 
 ## Ideas:
 - cronjob to remove used auth token values from db

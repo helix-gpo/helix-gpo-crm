@@ -65,6 +65,7 @@
 - add logs in services
 - get todos done
 - make corresponding service methods transactional
+- move security config urls to yml-config-file
 
 ## Ideas:
 - endpoint for final projects structure with overview ready for customers (dashboard)

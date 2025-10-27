@@ -6,7 +6,7 @@ import org.springframework.web.service.annotation.GetExchange;
 
 public interface ProjectClient {
 
-    @GetExchange(value = "/api/v1/website/projects/{projectId}")
+    @GetExchange(value = "/api/v1/projects/website/{projectId}")
     WebsiteProjectDto getWebsiteProject(@PathVariable(name = "projectId") Long projectId);
 
 }

@@ -1,0 +1,35 @@
+server:
+  port: ${SERVER_PORT}
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 6MB
+      max-request-size: 10MB
+  security:
+    user:
+      name: ${AWS_SERVICE_SECURITY_USERNAME}
+      password: ${AWS_SERVICE_SECURITY_PASSWORD}
+
+website:
+  security:
+    api-key-header: ${WEBSITE_API_KEY_HEADER}
+    api-key: ${WEBSITE_API_KEY}
+    api-path: ${PERMITTED_PATH}
+
+aws:
+  region: ${AWS_REGION}
+
+cors:
+  allowed-origins:
+    - "https://${FRONTEND_DOMAIN}"
+    - "https://${FRONTEND_SUBDOMAIN}"
+    - "https://${CLOUDFRONT_DOMAIN}"
+  allowed-methods:
+    - GET
+    - POST
+    - OPTIONS
+
+logging:
+  level:
+    org.springframework.security: info
